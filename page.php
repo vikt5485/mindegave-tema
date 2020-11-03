@@ -14,11 +14,6 @@
 get_header(); ?>
     <div id="primary" class="content-area">
         <main id="main" class="site-main">
-        <section>
-            <div class="grid-container">
-                <h1><?php echo the_title(); ?></h1>
-            </div>
-        </section>
             <?php
             while(have_posts()) : the_post();
                 get_template_part('template-parts/hero', 'banner');
