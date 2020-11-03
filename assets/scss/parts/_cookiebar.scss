@@ -1,0 +1,45 @@
+#cookiebar {
+  z-index: 100;
+  position: fixed;
+  right: 0px;
+  padding: 15px 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba($theme-color, 0.9);
+  font-size: 12px;
+  color: $white;
+  margin-bottom: 0;
+
+  @include breakpoint (small only) {
+    text-align: center;
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
+  @include breakpoint (medium up) {
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  #accept-cookies {
+    padding: 4px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    margin: 0;
+    background: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+  .btn {
+    color: $theme-color;
+  }
+}

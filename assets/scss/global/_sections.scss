@@ -1,0 +1,26 @@
+.site-content {
+	margin-top: 100px; // header height
+	width: 100%;
+}
+
+#page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+section {
+	padding: 5rem 0px;
+
+	@include breakpoint(small down) {
+		padding: 50px 0px;
+	}
+}
+
+.lightgray-bg {
+	background: $light-gray;
+}
+
+.page-intro {
+	margin-bottom: 2rem;
+}

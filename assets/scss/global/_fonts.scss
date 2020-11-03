@@ -1,0 +1,62 @@
+@font-face {
+    font-family: 'Fighter';
+    src: url('../fonts/Fighter-Bold.woff2') format('woff2'),
+        url('../fonts/Fighter-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fighter';
+    src: url('../fonts/Fighter-Light.woff2') format('woff2'),
+        url('../fonts/Fighter-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fighter';
+    src: url('../fonts/Fighter-Italic.woff2') format('woff2'),
+        url('../fonts/Fighter-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fighter';
+    src: url('../fonts/Fighter-BoldItalic.woff2') format('woff2'),
+        url('../fonts/Fighter-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fighter';
+    src: url('../fonts/Fighter-LightItalic.woff2') format('woff2'),
+        url('../fonts/Fighter-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fighter';
+    src: url('../fonts/Fighter-Regular.woff2') format('woff2'),
+        url('../fonts/Fighter-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fighter Overskrift';
+    src: url('../fonts/Fighter-Overskrift.woff2') format('woff2'),
+        url('../fonts/Fighter-Overskrift.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

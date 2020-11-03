@@ -1,0 +1,9 @@
+.grid-container {
+	@include breakpoint($global-width down) {
+		margin: 0px 5%;
+	}
+
+	@include breakpoint(small down) {
+		margin: 0px .5rem;
+	}
+}

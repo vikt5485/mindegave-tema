@@ -1,0 +1,38 @@
+.post-teaser { /* post teaser format*/
+	text-decoration: none;
+	color: inherit;
+	display: block;
+	background: $white;
+	width: 100%;
+
+    a {
+    	text-decoration: none;
+    }
+
+	&:hover {
+		color: inherit;		
+	}
+
+	.image {
+		img {
+			width: 100%;
+		}
+	}
+
+	.content {
+		padding: 2rem;
+	}
+	
+	.post-date {
+		color: $dark-gray;
+		font-size: 12px;
+	}
+
+	.post-title {
+		@extend h4;
+	}
+
+	.post-desc {
+		color: $body-font-color;
+	}
+}

@@ -1,0 +1,13 @@
+footer.site-footer {
+	color: $kb-mandel;
+	align-self: flex-end;
+	width: 100%;
+
+	a {
+		color: inherit;
+	}
+
+	svg {
+		fill: currentColor;
+	}
+}
