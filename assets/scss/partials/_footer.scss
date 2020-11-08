@@ -1,13 +1,24 @@
 footer.site-footer {
-	color: $kb-mandel;
-	align-self: flex-end;
-	width: 100%;
+  background: $tang;
+  color: $white;
+  align-self: flex-end;
+  width: 100%;
+  padding: 2rem 0;
 
-	a {
-		color: inherit;
-	}
+  .menu {
+    margin-bottom: 3rem;
+  }
 
-	svg {
-		fill: currentColor;
-	}
+  h4 {
+    color: $white;
+  }
+
+  a {
+    color: inherit;
+    padding: 0 0 0.7rem 0;
+  }
+
+  svg {
+    fill: currentColor;
+  }
 }

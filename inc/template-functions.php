@@ -120,12 +120,12 @@ function login_logo()
     ?>
     <style type="text/css">
         body.login {
-            background: #ffecec;
+            background: #F7F7F6;
         }
         body.login div#login h1 a {
             background-image: url(<?php echo get_template_directory_uri() . '/screenshot.png'; ?>);
             background-size: 100%;
-            width: 320px;
+            width: 320px; 
             height: 240px;
         }
 
@@ -143,14 +143,14 @@ function login_logo()
         }
 
         body.login .button-primary {
-            background: #ff2d66;
+            background: #F0001E;
             color: #fff;
-            border-color: #ff2d66;
+            border-color: #F0001E;
         }
 
         body.login .button-primary:hover {
-            background: #d01e61;
-            border-color: #d01e61;
+            background: #F0001E;
+            border-color: #F0001E;
         }
 
         body.login #nav, body.login #backtoblog {
@@ -163,7 +163,7 @@ function login_logo()
         }
 
         body.login #backtoblog a:hover, body.login #nav a:hover {
-            color: #ff2d66;
+            color: #F0001E;
         }
 
         body.login input:focus {
@@ -173,7 +173,7 @@ function login_logo()
         }
 
         body.login #login_error, body.login .message, body.login .success {
-            border-color: #ff2d66;
+            border-color: #F0001E;
         }
 
         body.login input[type=checkbox]:focus {
@@ -181,18 +181,18 @@ function login_logo()
         }
 
         body.login .button.wp-hide-pw .dashicons {
-            color: #ff2d66;
+            color: #F0001E;
         }
 
         body.login input[type=checkbox]:checked {
             outline: none;
             box-shadow: none;
-            border-color: #ff2d66;
+            border-color: #F0001E;
         }
 
         body.login input[type=checkbox]:checked::before {
             content: '';
-            background: #ff2d66;
+            background: #F0001E;
             width: 10px;
             height: 10px;
             /* position: absolute; */

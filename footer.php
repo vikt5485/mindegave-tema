@@ -22,11 +22,38 @@
 </div><!-- #content -->
 <footer id="colophon" class="site-footer">
     <div class="grid-container">
-        <!-- <div class="site-branding text-center">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-                <?php include(locate_template( 'assets/img/logo.svg' )); ?>
-            </a>
-        </div> -->
+        <div class="grid-x grid-margin-x ">
+            <div class="cell small-12 medium-4 large-3 large-offset-3">
+            <h4>Mindegave</h4>
+                <nav >
+                    <?php wp_nav_menu(array(
+                        'theme_location' => 'menu-2',
+                        'menu_id' => 'footer-1',
+                        'menu_class' => 'menu vertical'
+                    )); ?>
+                </nav>
+            </div>
+            <div class="cell small-12 medium-4 large-3">
+            <h4>Mindeindsamling</h4>
+                <nav >
+                    <?php wp_nav_menu(array(
+                        'theme_location' => 'menu-3',
+                        'menu_id' => 'footer-2',
+                        'menu_class' => 'menu vertical'
+                    )); ?>
+                </nav>
+            </div>
+            <div class="cell small-12 medium-4 large-3">
+            <h4>Om Mindegave</h4>
+                <nav >
+                    <?php wp_nav_menu(array(
+                        'theme_location' => 'menu-4',
+                        'menu_id' => 'footer-3',
+                        'menu_class' => 'menu vertical'
+                    )); ?>
+                </nav>
+            </div>
+        </div>
     </div>
 </footer><!-- #colophon -->
 </div><!-- #page -->
