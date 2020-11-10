@@ -24,6 +24,10 @@ header.site-header {
     right: 0px;
   }
 
+  .menu-item-has-children {
+    position: relative;
+  }
+
   .menu-item-has-children:hover {
     > .sub-menu {
       opacity: 1;

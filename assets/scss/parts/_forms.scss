@@ -1,0 +1,49 @@
+[type="text"],
+[type="password"],
+[type="date"],
+[type="datetime"],
+[type="datetime-local"],
+[type="month"],
+[type="week"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="tel"],
+[type="time"],
+[type="url"],
+[type="color"],
+textarea {
+  border: 0.5px solid $black;
+  background: $white;
+  border-radius: 0;
+  box-shadow: none;
+
+  &::placeholder {
+    color: $dark-gray;
+  }
+
+  &:focus {
+    box-shadow: none;
+    background: $white;
+    border: 0.5px solid $theme-color;
+  }
+}
+
+label {
+  font-size: 80%;
+}
+
+.donation-progress-wrapper {
+  width: 100%;
+  height: 50px;
+  background: $medium-gray;
+  position: relative;
+  overflow: hidden;
+
+  .donation-progress {
+    position: absolute;
+    height: 100%;
+    background: $success;
+    transition: 0.3s all;
+  }
+}

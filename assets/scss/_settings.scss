@@ -68,6 +68,7 @@
 
 $red: #f0001e;
 $tang: #204022;
+$success: #00a00a;
 
 $theme-color: $tang;
 
@@ -82,7 +83,7 @@ $global-lineheight: 1.5;
 $foundation-palette: (
   primary: $tang,
   secondary: lighten($theme-color, 40%),
-  success: #3adb76,
+  success: #00a00a,
   warning: #ffae00,
   alert: #cc4b37,
 );

@@ -15,9 +15,9 @@ Use it to make something cool, have fun, and share what you've learned with othe
 
 @charset 'utf-8';
 
-@import 'settings';
-@import 'foundation';
-@import 'motion-ui';
+@import "settings";
+@import "foundation";
+@import "motion-ui";
 
 @include foundation-global-styles;
 /* @include foundation-grid;*/
@@ -66,33 +66,34 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
-@import 'global/mixins';
+@import "global/mixins";
 
 /*Global*/
-@import 'global/fonts';
-@import 'global/sections';
-@import 'global/containers';
+@import "global/fonts";
+@import "global/sections";
+@import "global/containers";
 
 /*Partials*/
-@import 'partials/header';
-@import 'partials/sidebar';
-@import 'partials/hero-banner';
-@import 'partials/postformat';
+@import "partials/header";
+@import "partials/sidebar";
+@import "partials/hero-banner";
+@import "partials/postformat";
 
 /*PARTS*/
-@import 'parts/buttons';
-@import 'parts/forms';
-@import 'parts/cookiebar';
+@import "parts/buttons";
+@import "parts/forms";
+@import "parts/cookiebar";
 
 /*BLOCKS*/
 // Add flex blocks here
 
 /*Templates*/
-@import 'templates/frontpage';
-@import 'templates/archive';
-@import 'templates/single';
-@import 'templates/search';
-@import 'templates/404';
+@import "templates/frontpage";
+@import "templates/archive";
+@import "templates/single";
+@import "templates/search";
+@import "templates/404";
+@import "templates/opret-mindeindsamling";
 
 /*Footer*/
-@import 'partials/footer';
+@import "partials/footer";

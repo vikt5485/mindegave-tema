@@ -1,0 +1,26 @@
+.opret-mindeindsamling-container {
+  background: $white;
+  padding: 3rem;
+
+  form {
+    margin: 0 auto;
+    position: relative;
+
+    @include breakpoint(medium up) {
+      padding: 3rem;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step-active {
+      display: flex;
+    }
+
+    .remove-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
