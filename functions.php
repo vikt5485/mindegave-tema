@@ -70,3 +70,8 @@ require get_template_directory() . '/inc/image-sizes.php';
  * Theme Settings page
  */
 require get_template_directory() . '/inc/theme-settings.php';
+
+/**
+ * AJAX
+ */
+require get_template_directory() . '/inc/ajax.php';

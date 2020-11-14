@@ -3,4 +3,4 @@
  * Images sizes
  * --------------------------------------------------------------------------- */
 add_image_size('hero-size', 2000, 1333, true);
-add_image_size( 'thumbnail', 600, 300, true );
+add_image_size( 'thumbnail', 600, 400, true );

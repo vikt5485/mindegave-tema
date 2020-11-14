@@ -1,28 +1,25 @@
 <?php
-/*
+
 function register_custom_post_type()
 {
-    register_post_type('news',
+    register_post_type('indsamlinger',
         array(
             'labels' => array(
-                'name' => __('News', 'checkmate'),
-                'singular_name' => __('News', 'checkmate')
+                'name' => 'Indsamlinger',
+                'singular_name' => 'Indsamling',
+                'add_new' => 'Tilføj ny',
+                'add_new_item' => 'Tilføj ny indsamling',
             ),
             'public' => true,
-            'has_archive' => false,
-            'menu_icon' => 'dashicons-media-text',
-            'rewrite' => array(
-                'slug' => __('nyheder', 'slugs'),
-                'with_front' => false
-            ),
+            'has_archive' => true,
+            'menu_icon' => 'dashicons-clipboard',
+            'rewrite' => array( 'slug' => 'indsamling' ),
             'supports' => array(
                 'title',
-                'editor',
                 'thumbnail',
                 'revisions'),
-            'taxonomies' => array('category'),
         )
     );
 }
 
-add_action('acf/init', 'register_custom_post_type');*/
+add_action('acf/init', 'register_custom_post_type');

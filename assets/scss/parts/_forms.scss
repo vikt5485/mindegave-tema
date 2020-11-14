@@ -47,3 +47,15 @@ label {
     transition: 0.3s all;
   }
 }
+
+.error {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  color:red;
+
+}
+
+input.error, textarea.error {
+  margin: 0 0 1rem 0;
+  border: 0.5px solid red;
+}

@@ -1,6 +1,8 @@
 .opret-mindeindsamling-container {
   background: $white;
   padding: 3rem;
+  position: relative;
+  padding-bottom: 0;
 
   form {
     margin: 0 auto;
@@ -11,16 +13,66 @@
     }
 
     .step {
-      display: none;
+      visibility: hidden;
+      max-height: 0;
     }
 
     .step-active {
-      display: flex;
+      visibility: visible;
+      max-height: 100%;
     }
 
-    .remove-btn {
+    .hide-btn {
       opacity: 0;
       pointer-events: none;
+    }   
+
+    .remove-btn {
+      display: none;
+    }   
+
+    .error-container {
+      text-align: right;
+      margin-top: 1rem;
+    }
+  }
+
+  .dots {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    display: flex;
+
+    .dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      background-color: $light-gray;
+      margin-left: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: $header-font-family;
+      pointer-events: none;
+      position: relative;
+
+      &.dot-filled {
+        background-color: $success;
+        color: $white;
+
+        .dot-divider {
+          background: $success;
+        }
+      }
+
+      .dot-divider {
+        position: absolute;
+        width: 1rem;
+        height: 2px;
+        top: calc(50% - 1px);
+        background: $light-gray;
+        right: 100%;
+      }
     }
   }
 }

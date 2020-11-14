@@ -6,6 +6,7 @@ function custom_scripts()
 
     // theme scripts
     wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/dist/assets/js/app.js', array('jquery'), '20151215', true);
+    wp_enqueue_script('validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js', array('jquery'), '1.19.2', true);
 
     wp_localize_script('custom-scripts', 'site_vars', array(
             'ajax_url' => admin_url('admin-ajax.php'),

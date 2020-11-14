@@ -1,0 +1,28 @@
+.indsamling-archive {
+    .archive-donation-wrapper {
+        height: 25px;
+    }
+    
+    img {
+        margin-bottom: .5rem;
+    }
+
+    h2 {
+        margin-bottom: .5rem;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .total-donated {
+        p {
+            font-size: 90%;
+            margin-top: .3rem;
+        }
+    }
+}
+
+.indsamling-img {
+    filter: grayscale(0.5);
+}
