@@ -9,8 +9,13 @@ get_header(); ?>
         <main id="main" class="site-main">
             <?php get_template_part('template-parts/hero', 'banner'); ?>
             <section class="indsamling-archive white-bg">
-                <div class="grid-container">
-                    <div class="grid-x grid-margin-x grid-margin-y">
+                <div class="grid-container grid-x align-right">
+                    <form class="small-12 medium-6 large-4" method="post" data-search-collection id="search-collection">
+                        <input type="hidden" name="action" value="search_collection">
+                        <input type="search" name="search_input" id="search_input" placeholder="Søg på navn eller indsamlingens titel">
+                        <button type="submit" class="button submit-btn"><div class="search-icon"><?php include(locate_template( 'assets/img/search.svg' )); ?></div><div class='search-loader'></div></button>
+                    </form>
+                    <div class="small-12 grid-x grid-margin-x grid-margin-y collections-wrapper">
                         <?php
                             $args = array(
                                 'post_type' => 'indsamlinger',
@@ -19,31 +24,12 @@ get_header(); ?>
                                 'orderby' => 'date',
                                 'order' => 'DESC'
                             );
-
-
                             $loop = new WP_Query( $args ); 
                         ?>
 
                         <?php if( $loop->have_posts() ) : ?>   
                             <?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
-                                <?php 
-                                    global $post;
-                                    $image = get_field("ins_images");
-                                    $for_who = get_field("ins_for_who");
-                                    $total_donations = get_field("ins_total_donations");
-                                    $donation_goal = get_field("ins_goal");
-                                ?>
-                                <div class="cell small-12 medium-6 large-4">
-                                    <a href="<?php echo get_permalink( $post->ID ); ?>">
-                                        <img src="<?php echo esc_url( $image['sizes']['thumbnail'] ); ?>" class="indsamling-img" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
-                                        <h2><?php echo the_title(); ?></h2>
-                                        <p>Til minde om <?php echo $for_who; ?></p>
-                                        <div class="donation-progress-wrapper archive-donation-wrapper">
-                                            <div class="donation-progress" style="width:<?php echo $total_donations / $donation_goal * 100 ?>%;"></div>
-                                        </div>
-                                        <div class="total-donated"><p>kr. <?php echo $total_donations; ?>,- indsamlet</p></div>
-                                    </a>
-                                </div>
+                                <?php get_template_part('template-parts/archive-post'); ?>
                             <?php endwhile;
                             wp_reset_postdata(); 
                         endif; ?>

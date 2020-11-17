@@ -26,3 +26,54 @@
 .indsamling-img {
     filter: grayscale(0.5);
 }
+
+
+#search-collection {
+    position: relative;
+    margin-bottom: 3rem;
+
+    [type=submit] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        height: 3rem;
+        width: 4rem;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+            width: 20px;
+            height: 100%;
+            fill: $white;
+        }
+    }
+    [type=search] {
+        height: 3rem;
+        padding: 0.8rem;
+        border: none;
+        background: $light-gray;
+    }
+}
+
+body.form-loading {
+    .search-icon {
+        display: none;
+    }
+
+    .search-loader {
+        display: block;
+    }
+}
+
+.search-loader {
+    display: none;
+    border: 2px solid $light-gray;
+    border-top: 2px solid $tang; 
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }

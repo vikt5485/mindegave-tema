@@ -14,13 +14,15 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Overskrift.woff" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Overskrift.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php
     do_action('theme_body_scripts');
 ?>
-    <div id="page" class="site" :class="menu_active == true ? 'menu-active' : null">
+    <div id="page" class="site">
         <header id="masthead" class="site-header">
             <div class="grid-container">
                 <div class="grid-x grid-margin-x align-middle">
@@ -32,7 +34,7 @@
                         </div>
                     </div>
                     <div class="cell small-6 medium-8 large-9 grid-x align-right">
-                        <div class="burger" @click="toggle_menu">
+                        <div class="burger">
                             <span></span>
                         </div>
                         <nav id="site-navigation" class="main-navigation">

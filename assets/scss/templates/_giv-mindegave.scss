@@ -1,0 +1,56 @@
+.giv-mindegave {
+    form {
+        display: none;
+        opacity: 0;
+    }
+    .intro-card {
+        transition: .3s all;
+    }
+    
+  
+}
+
+.step-active {
+    display: flex;
+    max-height: 100%;
+}
+
+.show-step {
+    pointer-events: all;
+    animation-name: show-step;
+    animation-iteration-count: 1;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+.hide-step {
+    pointer-events: none;
+    animation-name: hide-step;
+    animation-iteration-count: 1;
+    animation-duration: .3s;
+}
+
+.remove-step {
+    opacity: 0;
+    pointer-events: none; 
+    max-height: 0;
+}
+
+@keyframes hide-step {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes show-step {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

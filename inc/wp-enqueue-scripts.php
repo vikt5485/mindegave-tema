@@ -12,6 +12,7 @@ function custom_scripts()
             'ajax_url' => admin_url('admin-ajax.php'),
             'home_url' => get_home_url(),
             'theme_url' => get_template_directory_uri(),
+            'process_upload_url' => get_template_directory_uri() . '/process_upload.php',
             'upload_dir' => wp_upload_dir(),
             'rest_url' => get_rest_url(null, 'wp/v2')
         )
