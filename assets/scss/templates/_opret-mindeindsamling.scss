@@ -97,7 +97,9 @@ body.form-loading {
   animation: spin 1s linear infinite;
 }
 
-
+.ins-images-preview {
+  max-height: 60vh;
+}
 
 
 @keyframes spin {

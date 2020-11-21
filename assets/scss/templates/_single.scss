@@ -9,3 +9,52 @@
         margin-bottom: 0;
     }
 }
+
+.donate-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba($color: $black, $alpha: 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+
+    .donate-content {
+        background: $white;
+        padding: 3rem;
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+
+            label[for=custom_donation] {
+                margin-top: 2rem;
+            }
+
+            button[type=submit] {
+                margin: 1rem 0 0 0;
+            }
+        }
+    }
+}
+
+.donate-popup.popup-open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.body-popup-open {
+    overflow: hidden;
+}
+
+.single-img-container {
+    img {
+        max-height: 70vh;
+    }
+}

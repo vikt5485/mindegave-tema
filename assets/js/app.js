@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $, { isEmptyObject } from "jquery";
 import "what-input";
 
 // Foundation JS relies on a global varaible. In ES6, all imports are hoisted
@@ -14,22 +14,23 @@ import "what-input";
     // Loaded when DOM is ready
     console.log("Running jQuery");
 
+    const steps = $(".step").toArray().length;
+    let currentStep = 1;
+
     createCollection();
     searchCollection();
+    makeDonation();
 
-    let currentStep = 1;
-    $("#opret-mindeindsamling-form .next").click({ direction: "next" }, changeFormSlide);
-    $("#opret-mindeindsamling-form .prev").click({ direction: "prev" }, changeFormSlide);
+    function togglePopup() {
+      $(".donate-popup").toggleClass("popup-open");
+      $("body").toggleClass("body-popup-open");
+    }
+  
 
     $("#with-greeting").click({ type: "with" }, showMindegaveForm);
     $("#without-greeting").click({ type: "without" }, showMindegaveForm);
 
-    $("#ins_goal").keyup(updateGoalPreview);
-    $("#ins_own_donation").keyup(updateOwnDonationPreview);
-    $("#ins_end_date").change(updateEndDate);
-    $("#ins_images").change(function() {
-      readURL(this);
-    });
+  
 
     $("form").submit(function(e) {
       e.preventDefault();
@@ -45,9 +46,6 @@ import "what-input";
           $("#giv-mindegave-form-" + e.data.type).addClass("show-step");
       });
     }
-
-
-    const steps = $(".step").toArray().length;
 
     function readURL(input) {
       if (input.files && input.files[0]) {
@@ -66,9 +64,13 @@ import "what-input";
     }
 
     function updateGoalPreview() {
-      $(".ins-goal-preview").text("kr. " + $("#ins_goal").val().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ",-");
+      $(".ins-goal-preview").text("kr. " + formatNumber($("#ins_goal").val()) + ",-");
 
       updateBarWidth();
+    }
+
+    function formatNumber(number) {
+      return number.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
     function updateOwnDonationPreview() {
@@ -112,8 +114,7 @@ import "what-input";
         if (currentStep == 1) {
           $("#opret-mindeindsamling-form .prev").addClass("hide-btn");
         } else if(currentStep == 4) {
-          $(".preview-title").text($("#ins_title").val());
-          $(".preview-name").text("Til minde om " + $("#ins_name").val());
+          $(".preview-name").text($("#ins_name").val());
           $(".preview-desc").text($("#ins_desc").val());
         } else {
           $("#opret-mindeindsamling-form .prev").removeClass("hide-btn");
@@ -130,6 +131,7 @@ import "what-input";
         $(".dots .dot-2").removeClass("dot-filled");
         $(".dots .dot-3").removeClass("dot-filled");
         $(".dots .dot-4").removeClass("dot-filled");
+        $(".dots .dot-5").removeClass("dot-filled");
 
         let dotStep = currentStep;
         while (dotStep > 0) {
@@ -186,6 +188,15 @@ import "what-input";
     }
 
     function createCollection() {
+      $("#opret-mindeindsamling-form .next").click({ direction: "next" }, changeFormSlide);
+      $("#opret-mindeindsamling-form .prev").click({ direction: "prev" }, changeFormSlide);
+      $("#ins_goal").keyup(updateGoalPreview);
+      $("#ins_own_donation").keyup(updateOwnDonationPreview);
+      $("#ins_end_date").change(updateEndDate);
+      $("#ins_images").change(function() {
+        readURL(this);
+      });
+
       let data = '';
       let loading = false;
       $("body").removeClass("form-loading");
@@ -196,7 +207,16 @@ import "what-input";
           ins_name: 'Angiv venligst hvem indsamlingen er til minde om (step 1).',
           ins_desc: 'Skriv venligst et par linjer om, hvorfor du samler ind til Kræftens Bekæmpelse (step 1).',
           ins_goal: 'Sæt venligst et mål for indsamlingen i kr (step 2).',
-          ins_end_date: 'Sæt venligst en slutdato for indsamlingen (step 2).'
+          ins_end_date: 'Sæt venligst en slutdato for indsamlingen (step 2).',
+          ins_images: 'Upload venligst et billede til indsamlingen (step 3).',
+          personal_first_name: 'Skriv venligst dit fornavn (step 5).',
+          personal_last_name: 'Skriv venligst dit efternavn (step 5).',
+          personal_email: 'Skriv venligst din e-mail (step 5).',
+          personal_phone: 'Skriv venligst dit telefonnr. (step 5).',
+          personal_address: 'Skriv venligst din adresse (step 5).',
+          personal_zip: 'Skriv venligst dit postnr. (step 5).',
+          personal_city: 'Skriv venligst din by (step 5).',
+          personal_consent: 'Accepter venligst vilkår og betingelser samt privatlivspolitik (step 5).'
         },
         errorPlacement: function(error, element) {
           error.appendTo(".error-container");
@@ -204,8 +224,9 @@ import "what-input";
         submitHandler: function(form) {
           data = $(form).serialize();
           var uploadData = new FormData(form);
-          $("#opret-mindeindsamling-form .step-4").removeClass("step-active");
-          $("#opret-mindeindsamling-form .step-4").addClass("remove-step");
+          $("#opret-mindeindsamling-form .step-5").removeClass("step-active");
+          $("#opret-mindeindsamling-form .step-5").addClass("remove-step");
+          $("#opret-mindeindsamling-form .prev").attr("disabled", "true");
           
           uploadImage(uploadData, function(res) {
             console.log(res);
@@ -232,6 +253,64 @@ import "what-input";
 
     }
 
+    function makeDonation() {
+      $(".donate-btn").click(togglePopup);
+      $(".donate-popup").click(togglePopup);
+      $(".donate-content").click(function(e) {
+        e.stopPropagation();
+      });
+
+      $("#donation_range").on("input", function() {
+        $(".donation_preview").text("kr. " + formatNumber($("#donation_range").val()) + ",-");
+        $("#custom_donation").val("");
+      });
+
+      $("#custom_donation").on("input", function() {
+        $(".donation_preview").text("kr. " + formatNumber($("#custom_donation").val()) + ",-");
+        $("#donation_range").val(100);
+      });
+
+      $("[name=donation_type]").on("input", function() {
+        if($("#personal_donation").is(":checked")) {
+          console.log("personlig");
+          $("[for='donation_name']").css("display", "block");
+          $("[for='donation_message']").css("display", "block");
+        } else if($("#anonymous_donation").is(":checked")) {
+          console.log("anonym");
+          $("[for='donation_name']").css("display", "none");
+          $("[for='donation_message']").css("display", "none");
+        }
+      })
+
+      
+      let data = '';
+      let loading = false;
+      $("body").removeClass("form-loading");
+
+      let validator = $("[data-make-donation]").validate({
+        messages: {
+          donation_name: "Skriv venligst dit navn.",
+          donation_message: "Skriv venligst en besked til donation."
+        },
+        submitHandler: function(form) {
+          data = $(form).serialize();
+          console.log(data);
+          $(".donation-form-main").addClass("remove-step");
+
+          do_ajax(data, loading, function(res) {
+            console.log(res);
+            if(res.status == "success") {
+              //Handle success
+              $("#make-donation-form .form-thank-you").removeClass("remove-step");
+
+            } else if(res.status == "error") {
+              //Handle error
+            }
+          })
+        }
+      })
+    }
+
     function do_ajax(data, loading, cb) {
       if(!loading) {
         $.ajax({
@@ -243,6 +322,7 @@ import "what-input";
             loading = true;
             $("body").addClass("form-loading");
             $("#opret-mindeindsamling-form [type=submit]").attr("disabled", "true");
+
 
             console.log("beforeSend");
           },
@@ -261,24 +341,27 @@ import "what-input";
     }
 
     function uploadImage(uploadData, cb) {
-      $.ajax({
-        url : site_vars.process_upload_url,
-        type: "POST",
-        data : uploadData,
-        processData: false,
-        contentType: false,
-        beforeSend:function() {
-          $("body").addClass("form-loading");
-          $("#opret-mindeindsamling-form [type=submit]").attr("disabled", "true");
-        },
-        success:function(data, textStatus, jqXHR){
-           console.log("upload success");
-           cb(data);
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            //if fails     
-        }
-    });
+
+        $.ajax({
+          url : site_vars.process_upload_url,
+          type: "POST",
+          data : uploadData,
+          processData: false,
+          contentType: false,
+          beforeSend:function() {
+            $("body").addClass("form-loading");
+            $("#opret-mindeindsamling-form [type=submit]").attr("disabled", "true");
+          },
+          success:function(data, textStatus, jqXHR){
+             console.log("upload success");
+             cb(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+              //if fails     
+          }
+      });
+      
+
     }
   });
 })(jQuery);

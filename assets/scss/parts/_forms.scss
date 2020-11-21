@@ -13,10 +13,12 @@
 [type="url"],
 [type="color"],
 textarea {
-  border: 0.5px solid $black;
-  background: $white;
+  // border: 0.5px solid $black;
+  // background: $white;
   border-radius: 0;
   box-shadow: none;
+  border: none;
+  background: $light-gray;
 
   &::placeholder {
     color: $dark-gray;
@@ -24,8 +26,10 @@ textarea {
 
   &:focus {
     box-shadow: none;
-    background: $white;
-    border: 0.5px solid $theme-color;
+    // background: $white;
+    // border: 0.5px solid $theme-color;
+    border: none;
+    background: $light-gray;
   }
 }
 
@@ -51,13 +55,17 @@ label {
 .error {
   margin-top: -1rem;
   margin-bottom: 1rem;
-  color:red;
-
+  color:#ff0000;
 }
 
 input.error, textarea.error {
   margin: 0 0 1rem 0;
-  border: 0.5px solid red;
+  // border: 0.5px solid red;
+  background-image: url("../img/error-icon.svg");
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  color: inherit;
 }
 
 
@@ -65,4 +73,8 @@ input.error, textarea.error {
   background: $white;
   padding: 3rem;
   position: relative;
+}
+
+[type=range] {
+  background: $white;
 }

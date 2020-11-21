@@ -182,16 +182,16 @@ $header-styles: (
       "font-size": 30,
     ),
     "h3": (
-      "font-size": 26,
+      "font-size": 20,
     ),
     "h4": (
-      "font-size": 22,
-    ),
-    "h5": (
       "font-size": 18,
     ),
-    "h6": (
+    "h5": (
       "font-size": 16,
+    ),
+    "h6": (
+      "font-size": 14,
     ),
   ),
   large: (
@@ -202,16 +202,16 @@ $header-styles: (
       "font-size": 30,
     ),
     "h3": (
-      "font-size": 26,
+      "font-size": 20,
     ),
     "h4": (
-      "font-size": 22,
-    ),
-    "h5": (
       "font-size": 18,
     ),
-    "h6": (
+    "h5": (
       "font-size": 16,
+    ),
+    "h6": (
+      "font-size": 14,
     ),
   ),
 );
@@ -888,8 +888,8 @@ $xy-grid: true;
 $grid-container: $global-width;
 $grid-columns: 12;
 $grid-margin-gutters: (
-  small: 20px,
-  medium: 30px,
+  small: 10px,
+  medium: 15px,
 );
 $grid-padding-gutters: $grid-margin-gutters;
 $grid-container-padding: $grid-padding-gutters;
