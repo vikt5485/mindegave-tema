@@ -6,11 +6,11 @@
 
 <div class="grid-container">
     <div class="grid-x grid-margin-x align-middle align-center">
-        <div class="cell small-12 medium-6 <?php echo $image_pos == "right" ? "small-order-2" : ""; ?>">
+        <div class="cell small-12 medium-6 <?php echo $image_pos == "left" ? "small-order-2" : ""; ?>">
             <?php echo $text; ?>
             <?php get_template_part("template-parts/button"); ?>
         </div>
-        <div class="cell small-12 medium-6">
+        <div class="cell small-12 medium-6 <?php echo $image_pos == "right" ? "small-order-2" : ""; ?>">
 	        <img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
         </div>
     </div>

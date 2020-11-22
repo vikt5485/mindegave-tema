@@ -58,8 +58,7 @@ get_header(); ?>
                     <section class="single-donations white-bg">
                         <div class="grid-container">
                             <h2>Donationer</h2>
-                            <div class="grid-x grid-margin-x grid-margin-y">
-
+                            <div class="grid-x grid-margin-x grid-margin-y colcade-grid">
                                 <?php while ( have_rows( 'donations' ) ) : the_row(); ?>
                                     <?php 
                                         $amount = get_sub_field( 'amount' );

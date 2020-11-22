@@ -21,6 +21,7 @@ import "what-input";
     searchCollection();
     makeDonation();
 
+
     function togglePopup() {
       $(".donate-popup").toggleClass("popup-open");
       $("body").toggleClass("body-popup-open");

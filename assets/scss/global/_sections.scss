@@ -18,7 +18,12 @@ section {
   @include breakpoint(small down) {
     padding: 50px 0px;
   }
+
+  &.section-no-padding {
+    padding: 0;
+  }  
 }
+
 
 .white-bg {
   background: $white;

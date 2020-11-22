@@ -15,7 +15,7 @@
         ?>
     <?php endwhile; ?>
 <?php endif; ?>
-
+ 
 <div class="cell small-12 medium-6 large-4 archive-post">
     <a href="<?php echo get_permalink( $post->ID ); ?>">
         <img src="<?php echo esc_url( $image['sizes']['thumbnail'] ); ?>" class="indsamling-img" alt="<?php echo esc_attr( $image['alt'] ); ?>" />

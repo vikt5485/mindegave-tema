@@ -125,26 +125,37 @@ function search_collection() {
                 $image = get_field("ins_images");
                 $name = get_field("ins_name");
                 $desc = get_field("ins_desc");
-                $total_donations = get_field("ins_total_donations");
                 $donation_goal = get_field("ins_goal");
+
+                $total_donated = 0;
+
+                if ( have_rows( 'donations' ) ) {
+                    while ( have_rows( 'donations' ) )  {
+                        the_row();
+                        $total_donated = $total_donated + get_sub_field( 'amount' );
+                    }
+                }
 
                 $response['html'] .= '
 
                 <div class="cell small-12 medium-6 large-4 archive-post">
                     <a href="' . get_permalink( $post->ID ) . '">
                         <img src="' . esc_url( $image["sizes"]["thumbnail"] ) . '" class="indsamling-img" alt="' . esc_attr( $image["alt"] ) . '" />
-                        <h3>Til minde om ' . $name . '</h3>
+                        <p class="small">Til minde om</p>
+                        <h3>' . $name . '</h3>
                         <p>' . $desc . '</p>
                         <div class="donation-progress-wrapper archive-donation-wrapper">
-                            <div class="donation-progress" style="width:' . $total_donations / $donation_goal * 100 . '%;"></div>
+                            <div class="donation-progress" style="width:' . $total_donated / $donation_goal * 100 . '%;"></div>
                         </div>
-                        <div class="total-donated"><p>kr. ' . number_format($total_donations, 0, ",", ".") . ',- indsamlet</p></div>
+                        <div class="total-donated"><p>kr. ' . number_format($total_donated, 0, ",", ".") . ',- indsamlet</p></div>
                     </a>
                 </div>
                 
                 ';
         }
-    }   
+    } else {
+        $response['html'] = '<h2 class="text-center small-12">Ingen resultater for "' . $search_query . '". <br>Prøv venligst igen.';
+    }
 
     $response['status'] = 'success';
     $response['data'] = $search_query;

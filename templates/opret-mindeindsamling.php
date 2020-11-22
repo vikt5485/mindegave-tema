@@ -163,7 +163,7 @@ get_header(); ?>
                         <div class="dot dot-3">3<div class="dot-divider"></div></div>
                         <div class="dot dot-4">4<div class="dot-divider"></div></div>
                         <div class="dot dot-5">5<div class="dot-divider"></div></div>
-                    </div>
+                    </div> 
                 </div>
             </section>
         </main><!-- #main -->
