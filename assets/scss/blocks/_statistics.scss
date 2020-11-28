@@ -1,0 +1,14 @@
+.statistics-container {
+    margin-top: 3rem;
+
+    .statistic {
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            padding-top: 100%;
+            float: left;
+        }
+    }
+} 

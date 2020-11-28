@@ -8,6 +8,15 @@
   -webkit-box-direction: normal;
   flex-flow: wrap row;
 
+  &.narrow {
+    height: auto;
+    min-height: 0;
+
+    @include breakpoint(medium up) {
+      padding: 5rem 0;
+    }
+  }
+
   //   @include breakpoint(small down) {
   //     height: auto;
   //   }

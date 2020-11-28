@@ -1,0 +1,5 @@
+.margin-top-small {
+    @include breakpoint(small down) {
+        margin-top: 3rem;
+    }
+}

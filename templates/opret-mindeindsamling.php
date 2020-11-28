@@ -12,10 +12,10 @@ get_header(); ?>
                 <div class="grid-container opret-mindeindsamling-container">
                     <h2 class="collection-header small-h1">Opret en Mindeindsamling</h2>
                     <p class="collection-text">Nedenstående info vil blive vist offentligt i forbindelse med din indsamling.</p>
-                    <form method="post" data-create-collection id="opret-mindeindsamling-form" name="opret-mindeindsamling-form" enctype="multipart/form-data">
+                    <form method="post" class="margin-top-small" data-create-collection id="opret-mindeindsamling-form" name="opret-mindeindsamling-form" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="create_collection">
                         <div class="step step-1 step-active show-step grid-x grid-margin-x">
-                            <h3 class="small-12 cell">Hvem er mindeindsamlingen til?</h3>
+                            <h4 class="small-12 cell">Hvem er mindeindsamlingen til?</h4>
                             <div class="cell small-12 medium-6">
                                 <label for="ins_name">Til minde om
                                     <input type="text" name="ins_name" id="ins_name" placeholder="Til minde om" required>
@@ -28,9 +28,6 @@ get_header(); ?>
                                         <input type="date" name="ins_dead" id="ins_dead" placeholder="Død"></input>
                                     </label>
                                 </div>
-                                <!-- <label for="ins_title">Indsamlingens navn
-                                    <input type="text" name="ins_title" id="ins_title" placeholder="Indsamlingens navn" required>
-                                </label> -->
                             </div>
                             <div class="cell small-12 medium-6">
                                 <label for="ins_desc">Hvorfor samler du ind til Kræftens Bekæmpelse?
@@ -39,7 +36,7 @@ get_header(); ?>
                             </div>
                         </div>
                         <div class="step step-2 grid-x grid-margin-x remove-step">
-                            <h3 class="small-12 cell">Hvad er målet for indsamlingen?</h3>
+                            <h4 class="small-12 cell">Hvad er målet for indsamlingen?</h4>
                             <div class="cell small-12 medium-4">
                                 <label for="ins_goal">Indsamlingens mål i kr.
                                     <input type="number" name="ins_goal" id="ins_goal" placeholder="Indsamlingens mål i kr." required>
@@ -65,7 +62,7 @@ get_header(); ?>
                             <div class="cell small-4 ins-goal-preview text-right"><p>kr. 0,-</p></div>
                         </div>
                         <div class="step step-3 grid-x grid-margin-x remove-step">
-                            <h3 class="small-12 cell">Personliggør indsamlingen</h3>
+                            <h4 class="small-12 cell">Personliggør indsamlingen</h4>
                             <div class="cell small-12 medium-6">
                                 <label for="ins_greeting">Personlig hilsen til donorer
                                     <textarea rows="4" name="ins_greeting" id="ins_greeting" placeholder="Skriv en hilsen, til dem der donerer til din indsamling"></textarea>
@@ -80,7 +77,7 @@ get_header(); ?>
                             </div>
                         </div>
                         <div class="step step-4 grid-x grid-margin-x align-middle remove-step">
-                            <h3 class="small-12 cell">Forhåndsvisning af indsamlingen</h3>
+                            <h4 class="small-12 cell">Forhåndsvisning af indsamlingen</h4>
                             <div class="cell small-12 medium-6 grid-x">
                                 <img class="ins-images-preview" src="" alt="">
                             </div>
@@ -100,7 +97,7 @@ get_header(); ?>
                         </div>
 
                         <div class="step step-5 grid-x grid-margin-x remove-step">
-                            <h3 class="small-12 cell">Personlige oplysninger</h3>
+                            <h4 class="small-12 cell">Personlige oplysninger</h4>
                             <div class="cell small-12 medium-6">
                                 <label for="personal_first_name">Fornavn
                                     <input type="text" name="personal_first_name" id="personal_first_name" placeholder="Fornavn" required>
@@ -149,15 +146,15 @@ get_header(); ?>
 
                         <div class="grid-x align-justify button-container">
                             <a class="button hide-btn hollow prev">Tilbage</a>
-                            <a class="button next">Videre</a>
-                            <button type="submit" class="button remove-btn submit-btn">Opret</button>
+                            <a class="button next small-order-3">Videre</a>
+                            <button type="submit" class="button medium-order-3 remove-btn submit-btn">Opret</button>
                         </div>
                         <div class="error-container">
 
                         </div> 
                     </form>
 
-                    <div class="dots">
+                    <div class="dots grid-x align-center">
                         <div class="dot dot-1 dot-filled">1</div>
                         <div class="dot dot-2">2<div class="dot-divider"></div></div>
                         <div class="dot dot-3">3<div class="dot-divider"></div></div>

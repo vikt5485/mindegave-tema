@@ -4,24 +4,31 @@
   position: relative;
   padding-bottom: 0;
 
+
+  @include breakpoint(medium down) {
+    padding-top: 7rem;
+  }
+
   form {
-    margin: 0 auto;
     position: relative;
 
     @include breakpoint(medium up) {
       padding: 3rem;
+      margin: 0 auto;
     }
 
-    // .step, .thank-you-step {
-    //   display: none;
-    //   opacity: 0;
-    // }
-
-
+    .button-container {
+      @include breakpoint(small down) {
+        padding-bottom: 3rem;
+      }
+    }
 
     .hide-btn {
       opacity: 0;
       pointer-events: none;
+      height: 0;
+      margin: 0;
+      padding: 0;
     }   
 
     .remove-btn {
@@ -37,8 +44,14 @@
   .dots {
     position: absolute;
     top: 3rem;
-    right: 3rem;
+    right: 0;
     display: flex;
+    width: 100%;
+    justify-content: center;
+
+    @include breakpoint(large up) {
+      justify-content: flex-end;
+    } 
 
     .dot {
       width: 30px;
@@ -52,6 +65,16 @@
       font-family: $header-font-family;
       pointer-events: none;
       position: relative;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      &:last-of-type {
+        @include breakpoint(large up) {
+          margin-right: 3rem;
+        } 
+      }
 
       &.dot-filled {
         background-color: $success;

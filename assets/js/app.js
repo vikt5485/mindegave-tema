@@ -20,6 +20,7 @@ import "what-input";
     createCollection();
     searchCollection();
     makeDonation();
+    burgerMenu();
 
 
     function togglePopup() {
@@ -31,11 +32,77 @@ import "what-input";
     $("#with-greeting").click({ type: "with" }, showMindegaveForm);
     $("#without-greeting").click({ type: "without" }, showMindegaveForm);
 
-  
-
     $("form").submit(function(e) {
       e.preventDefault();
     })
+
+
+    let inView = false;
+
+    if($('.statistics-container').length != 0) {
+      function isScrolledIntoView(elem) {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
+    }
+    
+      $(window).scroll(function() {
+        if (isScrolledIntoView('.statistics-container')) {
+            if (inView) { return; }
+            inView = true;
+
+            $( ".stat-data" ).each(function( index ) {
+              var ctx = $('#myChart-' + index);
+              let chartData = $(this).data();
+      
+              var options = {
+                legend: false,
+                tooltips: false,
+                aspectRatio: 1,
+                hover: false,
+                layout: {
+                  padding: {
+                      left: 10,
+                      right: 10,
+                      top: 10,
+                      bottom: 10
+                  }
+                },
+                animation: {
+                  duration: 1500,
+                  easing: "easeInOutQuad"
+                }
+              };
+      
+              var myDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                  datasets:[{
+                    data: [chartData.percentage, 100 - chartData.percentage],
+                    backgroundColor: [chartData.color, "#efefed"],
+                    borderWidth: 0 
+                  }],
+                  labels: [chartData.label],
+                  backgroundColor: '#f00',
+                },
+                options: options
+              });
+            });
+           
+        } else {
+            inView = false;  
+        }
+      });
+
+      
+    }
+
+
+
 
 
     function showMindegaveForm(e) {
@@ -126,6 +193,9 @@ import "what-input";
         if(currentStep == steps) {
           $("#opret-mindeindsamling-form .next").addClass("hide-btn");
           $("#opret-mindeindsamling-form .submit-btn").removeClass("remove-btn");
+        } else {
+          $("#opret-mindeindsamling-form .next").removeClass("hide-btn");
+          $("#opret-mindeindsamling-form .submit-btn").addClass("remove-btn");
         }
 
         $(".dots .dot-1").removeClass("dot-filled");
@@ -362,6 +432,20 @@ import "what-input";
           }
       });
       
+
+    }
+
+
+    //BURGER MENU
+    function burgerMenu() {
+      $(".burger").click(function() {
+        $("#masthead").toggleClass("menu-active");
+      })
+
+      $(".burger-menu-overlay").click(function() {
+        $("#masthead").toggleClass("menu-active");
+      })
+
 
     }
   });

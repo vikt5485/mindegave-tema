@@ -34,8 +34,18 @@
                         </div>
                     </div>
                     <div class="cell small-6 medium-8 large-9 grid-x align-right">
-                        <div class="burger">
+                        <div class="burger"> 
                             <span></span>
+                        </div>
+                        <nav id="burger-menu" class="main-navigation">
+                            <?php wp_nav_menu(array(
+                                'theme_location' => 'menu-1',
+                                'menu_id' => 'primary-menu',
+                                'menu_class' => 'menu align-left'
+                            )); ?>
+                        </nav>
+                        <div class="burger-menu-overlay">
+                            
                         </div>
                         <nav id="site-navigation" class="main-navigation">
                             <?php wp_nav_menu(array(

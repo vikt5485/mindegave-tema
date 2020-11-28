@@ -32,6 +32,9 @@ textarea {
     background: $light-gray;
   }
 }
+[type="checkbox"] {
+  margin-bottom: 0;
+}
 
 label {
   font-size: 80%;
