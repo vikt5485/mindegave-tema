@@ -1,13 +1,6 @@
 import $, { isEmptyObject } from "jquery";
 import "what-input";
-
-// Foundation JS relies on a global varaible. In ES6, all imports are hoisted
-// to the top of the file so if we used`import` to import Foundation,
-// it would execute earlier than we have assigned the global variable.
-// This is why we have to use CommonJS require() here since it doesn't
-// have the hoisting behavior.
-//window.jQuery = $;
-//require('foundation-sites');
+import Player from '@vimeo/player';
 
 (function ($) {
   $(document).ready(function () {
@@ -21,9 +14,31 @@ import "what-input";
     searchCollection();
     makeDonation();
     burgerMenu();
+    videoPopup();
+
+    function videoPopup() {
+      $(".video-placeholder").click(toggleVideoPopup);
+      $(".video-popup").click(toggleVideoPopup);
+      $(".video-popup iframe").click(function(e) {
+        e.stopPropagation();
+      });
+    }
 
 
-    function togglePopup() {
+    function toggleVideoPopup() {
+      let iframe = document.querySelector('iframe');
+      let player = new Player(iframe);
+
+      if($(".video-popup").hasClass("popup-open")) {
+        player.pause();
+      }
+
+      $(".video-popup").toggleClass("popup-open");
+      $("body").toggleClass("body-popup-open");
+
+    }
+
+    function toggleDonatePopup() {
       $(".donate-popup").toggleClass("popup-open");
       $("body").toggleClass("body-popup-open");
     }
@@ -325,8 +340,8 @@ import "what-input";
     }
 
     function makeDonation() {
-      $(".donate-btn").click(togglePopup);
-      $(".donate-popup").click(togglePopup);
+      $(".donate-btn").click(toggleDonatePopup);
+      $(".donate-popup").click(toggleDonatePopup);
       $(".donate-content").click(function(e) {
         e.stopPropagation();
       });

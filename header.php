@@ -26,14 +26,18 @@
         <header id="masthead" class="site-header">
             <div class="grid-container">
                 <div class="grid-x grid-margin-x align-middle">
-                    <div class="cell small-6 medium-4 large-3">
+                    <div class="cell small-8 large-4">
                         <div class="site-branding">
                             <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
                                 <?php include(locate_template( 'assets/img/logo.svg' )); ?>
+                                <div class="logo-text">
+                                    <h1>Mindegave</h1>
+                                    <h2>- en del af Kræftens Bekæmpelse</h2>
+                                </div>
                             </a>
                         </div>
                     </div>
-                    <div class="cell small-6 medium-8 large-9 grid-x align-right">
+                    <div class="cell small-4 large-8 grid-x align-right">
                         <div class="burger"> 
                             <span></span>
                         </div>
@@ -45,7 +49,7 @@
                             )); ?>
                         </nav>
                         <div class="burger-menu-overlay">
-                            
+
                         </div>
                         <nav id="site-navigation" class="main-navigation">
                             <?php wp_nav_menu(array(

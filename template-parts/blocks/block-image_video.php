@@ -2,6 +2,7 @@
     $type = get_sub_field("type");
     $image = get_sub_field("image");
     $video = get_sub_field("video");
+    $placeholder_img = get_sub_field("placeholder_image");
     $fit = get_sub_field("fit");
 ?>
 
@@ -14,7 +15,15 @@
                 <?php if($type == "image") : ?>
                     <img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
                 <?php elseif($type == "video") : ?>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium earum optio sapiente laboriosam, cumque quasi harum tempore, enim impedit necessitatibus, at consectetur eligendi modi! Quo consectetur magni dolorum earum eius.lorem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolorem, sunt, nostrum exercitationem nemo a aspernatur rerum sit eum necessitatibus nobis minus, laudantium ipsa eius eveniet dolor labore? Error, minus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis, maxime ipsa nemo totam minus debitis alias libero ullam itaque, rerum, consequatur a quidem! Ex tempora corrupti alias nobis optio!</p>
+                    <div class="video-placeholder" style="background-image:url(<?php echo $placeholder_img['url'] ?>);">
+                        <div class="overlay"></div>
+                        <div class="play-btn">
+                            <?php include(locate_template( 'assets/img/play-btn.svg' )); ?>
+                        </div>
+                    </div>
+                    <div class="video-popup">
+                        <?php echo $video; ?>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

@@ -79,18 +79,34 @@ header.site-header {
 
   a {
     color: currentColor;
-    padding: 2.7rem 1.5rem;
   }
 
   .site-branding {
     a {
-      display: block;
+      display: flex;
       font-size: 0px;
+      align-items: center;
+      text-decoration: none;
     }
 
     svg {
-      height: 30px;
+      height: 70px;
       width: auto;
+    }
+
+    .logo-text {
+
+      h1 {
+        font-size: 1.5rem;
+        margin-left: 1rem;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        font-size: 0.9rem;
+        margin-left: 1.2rem;
+        margin-bottom: 0;
+      }
     }
   }
 }
