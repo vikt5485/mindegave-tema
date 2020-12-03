@@ -18,7 +18,7 @@
     <?php if(is_front_page()) : ?>
         <?php if($video_placeholder) : ?>
             <div id="hero">
-                <video style="<?php echo $video_placeholder['url']; ?>" playsinline autoplay muted loop poster="<?php echo $video_placeholder['url']; ?>" id="bgvideo" width="x" height="y">
+                <video playsinline autoplay muted loop poster="<?php echo $video_placeholder['url']; ?>" id="bgvideo" width="x" height="y">
                     <source src="<?php echo get_template_directory_uri() . "/assets/video/video-test.mp4" ?>" type="video/mp4">
                 </video>
             </div>

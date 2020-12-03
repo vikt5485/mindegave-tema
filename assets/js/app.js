@@ -19,6 +19,20 @@ import Player from '@vimeo/player';
     let currentStep = 1;
 
 
+    $(".explainer").click(toggleVideoPlayState);
+    $(".square-video .play-btn").click(toggleVideoPlayState);
+
+    function toggleVideoPlayState() {
+      if(document.querySelector(".explainer").paused) {
+        document.querySelector(".explainer").play();
+        $(".square-video .play-btn").css("display", "none");
+      } else {
+        document.querySelector(".explainer").pause();
+        $(".square-video .play-btn").css("display", "block");
+      }
+    }
+
+
     $("form").submit(function(e) {
       e.preventDefault();
     })
