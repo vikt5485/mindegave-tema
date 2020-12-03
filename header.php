@@ -30,7 +30,6 @@
                                 <?php include(locate_template( 'assets/img/logo.svg' )); ?>
                                 <div class="logo-text">
                                     <h1>Mindegave</h1>
-                                    <h2>- en del af Kræftens Bekæmpelse</h2>
                                 </div>
                             </a>
                         </div>
