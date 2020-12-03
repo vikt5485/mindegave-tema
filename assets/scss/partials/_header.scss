@@ -4,7 +4,6 @@ header.site-header {
 
   z-index: 99;
   width: 100%;
-  height: 100px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
@@ -22,6 +21,7 @@ header.site-header {
     top: 0px;
     left: 0px;
     right: 0px;
+    height: 100px;
   }
 
   .menu-item-has-children {
@@ -79,6 +79,12 @@ header.site-header {
 
   a {
     color: currentColor;
+    padding: 2.7rem 2rem;
+    font-size: 14px;
+
+    @include breakpoint(medium down) {
+      padding: 2rem 1.5rem;
+    }
   }
 
   .site-branding {
@@ -87,6 +93,7 @@ header.site-header {
       font-size: 0px;
       align-items: center;
       text-decoration: none;
+      padding: 0;
     }
 
     svg {
@@ -155,7 +162,7 @@ header.site-header {
   right: 0;
   transform: translateX(100%);
   transition: 0.3s all;
-  padding: 3rem;
+  padding: 1rem;
   max-width: 450px;
   z-index: 10;
 
@@ -165,6 +172,10 @@ header.site-header {
     li {
       font-size: 1.5rem;
       font-family: $header-font-family;
+
+      a {
+        font-size: 1.5rem;
+      }
 
       &.menu-item-has-children {
         a {
@@ -190,6 +201,7 @@ header.site-header {
 
         a {
           padding: 1rem 1.5rem;
+          font-size: 1.3rem;
         }
       }
     }

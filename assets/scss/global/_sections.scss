@@ -28,6 +28,16 @@ section {
   }  
 }
 
+.page-template-giv-mindegave, .page-template-opret-mindeindsamling {
+  #content {
+    min-height: calc(100vh - 89px - 205px);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+}
+
 
 .white-bg {
   background: $white;

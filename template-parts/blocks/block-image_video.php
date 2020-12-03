@@ -16,9 +16,8 @@
                     <img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
                 <?php elseif($type == "video") : ?>
                     <div class="video-placeholder" style="background-image:url(<?php echo $placeholder_img['url'] ?>);">
-                        <div class="overlay"></div>
                         <div class="play-btn">
-                            <?php include(locate_template( 'assets/img/play-btn.svg' )); ?>
+                            <?php include(locate_template( 'assets/img/play-btn-white.svg' )); ?>
                         </div>
                     </div>
                     <div class="video-popup">

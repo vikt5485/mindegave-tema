@@ -1,13 +1,15 @@
-.giv-mindegave {
+.mindegave-without-container, .mindegave-with-container {
+    display: none;
+    opacity: 0;
+    padding: 0!important;
+
     form {
-        display: none;
-        opacity: 0;
+        padding-bottom: 0;
     }
+
     .intro-card {
         transition: .3s all;
     }
-    
-  
 }
 
 .step-active {

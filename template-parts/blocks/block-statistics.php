@@ -1,6 +1,6 @@
 <?php 
     $intro = get_sub_field("intro");
-
+    $second_color = get_sub_field("background_color") == "white" ? "#efefed" : "#f7f7f6";
 ?>
 
 <div class="grid-container">
@@ -25,7 +25,7 @@
                                     <p><?php echo $percentage . "%"; ?></p>
                                     <?php $i++; ?>
                                 </div>
-                                <div class="stat-data hidden" data-label="<?php echo $label; ?>" data-percentage="<?php echo $percentage; ?>" data-color="<?php echo $color; ?>"></div>
+                                <div class="stat-data hidden" data-label="<?php echo $label; ?>" data-percentage="<?php echo $percentage; ?>" data-color="<?php echo $color; ?>" data-secondcolor="<?php echo $second_color; ?>"></div>
                         <?php endwhile; ?>
                     <?php endif; ?>
                     </div>                    

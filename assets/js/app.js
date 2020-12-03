@@ -2,6 +2,14 @@ import $, { isEmptyObject } from "jquery";
 import "what-input";
 import Player from '@vimeo/player';
 
+// Foundation JS relies on a global varaible. In ES6, all imports are hoisted
+// to the top of the file so if we used`import` to import Foundation,
+// it would execute earlier than we have assigned the global variable.
+// This is why we have to use CommonJS require() here since it doesn't
+// have the hoisting behavior.
+//window.jQuery = $;
+//require('foundation-sites');
+
 (function ($) {
   $(document).ready(function () {
     // Loaded when DOM is ready
@@ -10,11 +18,20 @@ import Player from '@vimeo/player';
     const steps = $(".step").toArray().length;
     let currentStep = 1;
 
+
+    $("form").submit(function(e) {
+      e.preventDefault();
+    })
+
+    let inView = false;
+
     createCollection();
     searchCollection();
     makeDonation();
     burgerMenu();
-    videoPopup();
+    videoPopup();  
+    createStatistics();
+    givMindegave();
 
     function videoPopup() {
       $(".video-placeholder").click(toggleVideoPopup);
@@ -22,15 +39,15 @@ import Player from '@vimeo/player';
       $(".video-popup iframe").click(function(e) {
         e.stopPropagation();
       });
+
     }
 
-
     function toggleVideoPopup() {
-      let iframe = document.querySelector('iframe');
-      let player = new Player(iframe);
+      // let iframe = $(".video-popup iframe");
+      // player = new YT.Player(iframe);
 
       if($(".video-popup").hasClass("popup-open")) {
-        player.pause();
+        // player.pause();
       }
 
       $(".video-popup").toggleClass("popup-open");
@@ -42,91 +59,133 @@ import Player from '@vimeo/player';
       $(".donate-popup").toggleClass("popup-open");
       $("body").toggleClass("body-popup-open");
     }
-  
 
-    $("#with-greeting").click({ type: "with" }, showMindegaveForm);
-    $("#without-greeting").click({ type: "without" }, showMindegaveForm);
+    function givMindegave() {
+      $("#with-greeting").click({ type: "with" }, showMindegaveForm);
+      $("#without-greeting").click({ type: "without" }, showMindegaveForm);
 
-    $("form").submit(function(e) {
-      e.preventDefault();
-    })
-
-
-    let inView = false;
-
-    if($('.statistics-container').length != 0) {
-      function isScrolledIntoView(elem) {
-        var docViewTop = $(window).scrollTop();
-        var docViewBottom = docViewTop + $(window).height();
-
-        var elemTop = $(elem).offset().top;
-        var elemBottom = elemTop + $(elem).height();
-
-        return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
-    }
-    
-      $(window).scroll(function() {
-        if (isScrolledIntoView('.statistics-container')) {
-            if (inView) { return; }
-            inView = true;
-
-            $( ".stat-data" ).each(function( index ) {
-              var ctx = $('#myChart-' + index);
-              let chartData = $(this).data();
+      let data = '';
+      let loading = false;
+      $("body").removeClass("form-loading");
       
-              var options = {
-                legend: false,
-                tooltips: false,
-                aspectRatio: 1,
-                hover: false,
-                layout: {
-                  padding: {
-                      left: 10,
-                      right: 10,
-                      top: 10,
-                      bottom: 10
-                  }
-                },
-                animation: {
-                  duration: 1500,
-                  easing: "easeInOutQuad"
-                }
-              };
-      
-              var myDoughnutChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                  datasets:[{
-                    data: [chartData.percentage, 100 - chartData.percentage],
-                    backgroundColor: [chartData.color, "#efefed"],
-                    borderWidth: 0 
-                  }],
-                  labels: [chartData.label],
-                  backgroundColor: '#f00',
-                },
-                options: options
-              });
-            });
-           
-        } else {
-            inView = false;  
+      let validator = $("[data-create-mindegave-without]").validate({
+        messages: {
+          mindegave_first_name: 'Angiv venligst dit fornavn.',
+          mindegave_last_name: 'Angiv venligst dit efternavn.',
+          mindegave_email: 'Angiv venligst din e-mail.',
+          mindegave_phone: 'Angiv venligst dit telefonnr.',
+          mindegave_address: 'Angiv venligst din adresse.',
+          mindegave_zip: 'Angiv venligst dit postnr.',
+          mindegave_city: 'Angiv venligst din by.',
+          mindegave_donation: 'Skriv venligst hvor meget du vil donere.',
+          mindegave_name_dead: 'Angiv venligst navnet på afdøde.',
+          mindegave_name_relative: 'Angiv venligst navnet på nærmeste pårørende.',
+          mindegave_relative_address: 'Angiv venligst adressen på nærmeste pårørende',
+          mindegave_relative_zip: 'Angiv venligst postnr. på nærmeste pårørende',
+          mindegave_relative_city: 'Angiv venligst by på nærmeste pårørende',
+          mindegave_consent: 'Accepter venligst vilkår og betingelser samt privatlivspolitik.'
+        },
+        errorPlacement: function(error, element) {
+          error.appendTo(".error-container");
+        },
+        submitHandler: function(form) {
+          data = $(form).serialize();
+
+          $("#giv-mindegave-form-without .step-2").removeClass("step-active");
+          $("#giv-mindegave-form-without .step-2").addClass("remove-step");
+          $("#giv-mindegave-form-without .prev").attr("disabled", "true");
+ 
+          do_ajax(data, loading, function(res) {
+            console.log(res);
+            if(res.status == "success") {
+              //Handle success
+              $(".collection-header").remove();
+              $(".collection-text").remove();
+              $("#giv-mindegave-form-without").remove();
+              $(".button-container").remove();
+              $(".thank-you-step").removeClass("remove-step");
+              $(".thank-you-step").addClass("step-active");
+            } else if(res.status == "error") {
+              //Handle error
+            }
+          })
         }
-      });
-
-      
+      })
     }
-
-
-
-
+  
+    function createStatistics() {
+      if($('.statistics-container').length != 0) {
+        function isScrolledIntoView(elem) {
+          var docViewTop = $(window).scrollTop();
+          var docViewBottom = docViewTop + $(window).height();
+  
+          var elemTop = $(elem).offset().top;
+          var elemBottom = elemTop + $(elem).height();
+  
+          return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
+        }
+      
+        $(window).scroll(function() {
+          if (isScrolledIntoView('.statistics-container')) {
+              if (inView) { return; }
+              inView = true;
+  
+              $( ".stat-data" ).each(function( index ) {
+                var ctx = $('#myChart-' + index);
+                let chartData = $(this).data();
+                console.log(chartData);
+        
+                var options = {
+                  legend: false,
+                  tooltips: false,
+                  aspectRatio: 1,
+                  hover: false,
+                  layout: {
+                    padding: {
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                        bottom: 10
+                    }
+                  },
+                  animation: {
+                    duration: 1500,
+                    easing: "easeInOutQuad"
+                  }
+                };
+        
+                var myDoughnutChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                    datasets:[{
+                      data: [chartData.percentage, 100 - chartData.percentage],
+                      backgroundColor: [chartData.color, chartData.secondcolor],
+                      borderWidth: 0 
+                    }],
+                    labels: [chartData.label],
+                    backgroundColor: '#f00',
+                  },
+                  options: options
+                });
+              });
+              
+          } else {
+              inView = false;  
+          }
+        });
+      }
+    }
 
     function showMindegaveForm(e) {
       $(".intro-card").addClass("hide-step");
 
       $(".intro-card").one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
           $(this).css('display', 'none');
-          $("#giv-mindegave-form-" + e.data.type).css("display", "block");
-          $("#giv-mindegave-form-" + e.data.type).addClass("show-step");
+          $(".mindegave-" + e.data.type + "-container").css("display", "block");
+          $(".mindegave-" + e.data.type + "-container").addClass("show-step");
+
+          $(".mindegave-" + e.data.type + "-container form .next").click({ direction: "next", selector: '.mindegave-' + e.data.type + '-container form' }, changeFormSlide);
+          $(".mindegave-" + e.data.type + "-container form .prev").click({ direction: "prev", selector: '.mindegave-' + e.data.type + '-container form'  }, changeFormSlide);
       });
     }
 
@@ -169,10 +228,11 @@ import Player from '@vimeo/player';
 
     function changeFormSlide(e) {
       let direction = e.data.direction;
+      let selector = e.data.selector;
       console.log(currentStep);
  
-      $("#opret-mindeindsamling-form .step-" + currentStep).addClass("hide-step");
-      $("#opret-mindeindsamling-form .step-" + currentStep).one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
+      $(selector + " .step-" + currentStep).addClass("hide-step");
+      $(selector + " .step-" + currentStep).one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
         $(this).removeClass("step-active");
         $(this).removeClass("hide-step");          
         $(this).removeClass("show-step");          
@@ -186,31 +246,31 @@ import Player from '@vimeo/player';
           currentStep--;
         }
 
-        $("#opret-mindeindsamling-form .step-" + currentStep).removeClass("remove-step");
-        $("#opret-mindeindsamling-form .step-" + currentStep).addClass("show-step");
+        $(selector + " .step-" + currentStep).removeClass("remove-step");
+        $(selector + " .step-" + currentStep).addClass("show-step");
 
-        $("#opret-mindeindsamling-form .step-" + currentStep).one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
+        $(selector + " .step-" + currentStep).one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
           $(this).removeClass("show-step");
           $(this).addClass("step-active");
         });
 
         if (currentStep == 1) {
-          $("#opret-mindeindsamling-form .prev").addClass("hide-btn");
+          $(selector + " .prev").addClass("hide-btn");
         } else if(currentStep == 4) {
           $(".preview-name").text($("#ins_name").val());
           $(".preview-desc").text($("#ins_desc").val());
         } else {
-          $("#opret-mindeindsamling-form .prev").removeClass("hide-btn");
-          $("#opret-mindeindsamling-form .next").removeClass("hide-btn");
-          $("#opret-mindeindsamling-form .submit-btn").addClass("remove-btn");
+          $(selector + " .prev").removeClass("hide-btn");
+          $(selector + " .next").removeClass("hide-btn");
+          $(selector + " .submit-btn").addClass("remove-btn");
         }
 
         if(currentStep == steps) {
-          $("#opret-mindeindsamling-form .next").addClass("hide-btn");
-          $("#opret-mindeindsamling-form .submit-btn").removeClass("remove-btn");
+          $(selector + " .next").addClass("hide-btn");
+          $(selector + " .submit-btn").removeClass("remove-btn");
         } else {
-          $("#opret-mindeindsamling-form .next").removeClass("hide-btn");
-          $("#opret-mindeindsamling-form .submit-btn").addClass("remove-btn");
+          $(selector + " .next").removeClass("hide-btn");
+          $(selector + " .submit-btn").addClass("remove-btn");
         }
 
         $(".dots .dot-1").removeClass("dot-filled");
@@ -274,8 +334,8 @@ import Player from '@vimeo/player';
     }
 
     function createCollection() {
-      $("#opret-mindeindsamling-form .next").click({ direction: "next" }, changeFormSlide);
-      $("#opret-mindeindsamling-form .prev").click({ direction: "prev" }, changeFormSlide);
+      $("#opret-mindeindsamling-form .next").click({ direction: "next", selector: "#opret-mindeindsamling-form" }, changeFormSlide);
+      $("#opret-mindeindsamling-form .prev").click({ direction: "prev", selector: "#opret-mindeindsamling-form" }, changeFormSlide);
       $("#ins_goal").keyup(updateGoalPreview);
       $("#ins_own_donation").keyup(updateOwnDonationPreview);
       $("#ins_end_date").change(updateEndDate);
@@ -449,7 +509,6 @@ import Player from '@vimeo/player';
       
 
     }
-
 
     //BURGER MENU
     function burgerMenu() {

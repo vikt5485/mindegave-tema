@@ -16,7 +16,7 @@ get_header(); ?>
                         <input type="hidden" name="action" value="create_collection">
                         <div class="step step-1 step-active show-step grid-x grid-margin-x">
                             <h4 class="small-12 cell">Hvem er mindeindsamlingen til?</h4>
-                            <div class="cell small-12 medium-6">
+                            <div class="cell small-12 medium-6"> 
                                 <label for="ins_name">Til minde om
                                     <input type="text" name="ins_name" id="ins_name" placeholder="Til minde om" required>
                                 </label>

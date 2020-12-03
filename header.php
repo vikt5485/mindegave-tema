@@ -14,8 +14,6 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Overskrift.woff" as="font" type="font/woff" crossorigin="anonymous">
-    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Overskrift.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>

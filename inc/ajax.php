@@ -92,7 +92,6 @@ function create_collection() {
 
 }
 
-
 add_action("wp_ajax_search_collection", "search_collection");
 add_action("wp_ajax_nopriv_search_collection", "search_collection");
 
@@ -203,6 +202,23 @@ function make_donation() {
     $response['post_id'] = $post_id;
     $response['donation'] = $donation;
     $response['name'] = $name;
+
+    echo json_encode($response);
+
+    wp_die();
+}
+
+add_action("wp_ajax_giv_mindegave_without", "giv_mindegave_without");
+add_action("wp_ajax_nopriv_giv_mindegave_without", "giv_mindegave_without");
+
+function giv_mindegave_without() {
+    $response = array(
+        'status' => 'error'
+    );
+
+   
+
+    $response['status'] = 'success';
 
     echo json_encode($response);
 
