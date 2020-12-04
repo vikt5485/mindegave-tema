@@ -15,6 +15,8 @@
 .step-active {
     display: flex;
     max-height: 100%;
+    z-index: 30;
+    position: relative;
 }
 
 .show-step {
@@ -23,6 +25,7 @@
     animation-iteration-count: 1;
     animation-duration: .5s;
     animation-fill-mode: forwards;
+
 }
 .hide-step {
     pointer-events: none;
@@ -35,6 +38,8 @@
     opacity: 0;
     pointer-events: none; 
     max-height: 0;
+    z-index: 10;
+    position: relative;
 }
 
 @keyframes hide-step {
@@ -55,4 +60,108 @@
     100% {
         opacity: 1;
     }
+}
+
+.card-option {
+    cursor: pointer;
+    transition: 0.3s all;
+
+   &:hover {
+       transform: scale(1.03);
+   } 
+}
+
+.flip-card {
+    position: absolute;
+    top: -7rem;
+    right: 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+.flip-card-active {
+    display: flex;
+    max-height: 100%;
+    opacity: 1;
+    pointer-events: all;
+    max-width: 100%;
+
+    &.card-preview {
+        max-width: 700px;
+
+        @include breakpoint(medium down) {
+            max-width: 350px;
+        } 
+        margin: 0 auto;
+        box-shadow: 0px 0px 65px $medium-gray;
+    }
+}
+
+.flip-card-inactive {
+    opacity: 0;
+    pointer-events: none; 
+    max-height: 0;
+    max-width: 0;
+
+    &.card-preview {
+        max-width: 0;
+        width: 0;
+        margin: 0;
+    }
+}
+
+.miniature {
+    width: 30px;
+}
+
+.card-preview {
+
+    .card-content {
+        padding: 2rem;
+
+        h3 {
+            display: inline;
+            margin-bottom: 5px;
+        }
+
+        .part {
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 0;
+
+            &.small {
+                font-size: 80%;
+                margin-top: 0;
+            }
+
+            &.medium {
+                font-weight: bold;
+                font-size: 110%;
+            }
+
+            &.big {
+                font-weight: bold;
+                font-size: 130%;
+            }
+        }
+
+        .kb_logo {
+            width: 20%;
+        }
+
+    }
+}
+
+.first-col {
+   @include breakpoint(medium up) {
+       padding: 0 2rem!important;
+   }  
+}
+.second-col {
+   @include breakpoint(medium up) {
+       padding: 0 2rem!important;
+   }  
 }

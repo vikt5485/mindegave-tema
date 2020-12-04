@@ -15,6 +15,7 @@ function custom_scripts()
             'theme_url' => get_template_directory_uri(),
             'process_upload_url' => get_template_directory_uri() . '/process_upload.php',
             'get_stats_url' => get_template_directory_uri() . '/get_stats_data.php',
+            'get_selected_image_url' => get_template_directory_uri() . '/get_selected_image.php',
             'upload_dir' => wp_upload_dir(),
             'rest_url' => get_rest_url(null, 'wp/v2')
         )

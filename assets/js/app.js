@@ -15,7 +15,7 @@ import Player from '@vimeo/player';
     // Loaded when DOM is ready
     console.log("Running jQuery");
 
-    const steps = $(".step").toArray().length;
+    let steps = $(".step").toArray().length;
     let currentStep = 1;
 
 
@@ -82,8 +82,11 @@ import Player from '@vimeo/player';
       let loading = false;
       $("body").removeClass("form-loading");
       
-      let validator = $("[data-create-mindegave-without]").validate({
+      let validator = $("[data-create-mindegave]").validate({
         messages: {
+          mindegave_name: 'Angiv venligst navnet på afdøde.',
+          mindegave_greeting: 'Skriv venligst en hilsen.',
+          mindegave_from: 'Angiv venligst hvem gaven er fra.',
           mindegave_first_name: 'Angiv venligst dit fornavn.',
           mindegave_last_name: 'Angiv venligst dit efternavn.',
           mindegave_email: 'Angiv venligst din e-mail.',
@@ -108,6 +111,10 @@ import Player from '@vimeo/player';
           $("#giv-mindegave-form-without .step-2").removeClass("step-active");
           $("#giv-mindegave-form-without .step-2").addClass("remove-step");
           $("#giv-mindegave-form-without .prev").attr("disabled", "true");
+
+          $("#giv-mindegave-form-with .step-3").removeClass("step-active");
+          $("#giv-mindegave-form-with .step-3").addClass("remove-step"); 
+          $("#giv-mindegave-form-with .prev").attr("disabled", "true");  
  
           do_ajax(data, loading, function(res) {
             console.log(res);
@@ -116,6 +123,7 @@ import Player from '@vimeo/player';
               $(".collection-header").remove();
               $(".collection-text").remove();
               $("#giv-mindegave-form-without").remove();
+              $("#giv-mindegave-form-with").remove();
               $(".button-container").remove();
               $(".thank-you-step").removeClass("remove-step");
               $(".thank-you-step").addClass("step-active");
@@ -192,6 +200,13 @@ import Player from '@vimeo/player';
 
     function showMindegaveForm(e) {
       $(".intro-card").addClass("hide-step");
+      console.log(e.data.type);
+
+      if(e.data.type == "with") {
+        steps = $(".mindegave-with-container .step").toArray().length;
+      } else if(e.data.type == "without") {
+        steps = $(".mindegave-without-container .step").toArray().length;
+      }
 
       $(".intro-card").one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
           $(this).css('display', 'none');
@@ -200,6 +215,59 @@ import Player from '@vimeo/player';
 
           $(".mindegave-" + e.data.type + "-container form .next").click({ direction: "next", selector: '.mindegave-' + e.data.type + '-container form' }, changeFormSlide);
           $(".mindegave-" + e.data.type + "-container form .prev").click({ direction: "prev", selector: '.mindegave-' + e.data.type + '-container form'  }, changeFormSlide);
+          $(".card-option").click({ direction: "next", selector: '.mindegave-' + e.data.type + '-container form' }, changeFormSlide);
+          $(".card-option").click(getSelectedImage);
+
+          $(".flip-card").click(function() {
+            $(".flip-card-toggle").toggleClass("flip-card-inactive flip-card-active");
+
+            if($(".card-preview").hasClass("flip-card-active")) {
+              $(".flip-card p").text("Ret kort");
+            } else {
+              $(".flip-card p").text("Se kort");
+            }
+
+            $(".name-preview").text($("#mindegave_name").val());
+            $(".greeting-preview").text($("#mindegave_greeting").val());
+            $(".from-preview").text($("#mindegave_from").val());
+            if(!$("#mindegave_hide_donation").is(":checked")) {
+              $(".donation-preview").text("kr. " + $("#mindegave_donation").val() + ",-");
+              $(".colledted-text").text("indsamlet til Kræftens Bekæmpelse.");
+            } else {
+              $(".donation-preview").text("");
+              $(".colledted-text").text("Har med denne mindegave støttet Kræftens Bekæmpelse.");
+            }
+          })
+
+
+
+      });
+    }
+
+    function getSelectedImage(e) {
+      let imageID = parseInt(e.target.getAttribute("data-image-id"));
+
+      console.log(imageID);
+
+      $.ajax({
+        url: site_vars.ajax_url,
+        type: "POST",
+        data: {
+          action: 'get_selected_image',
+          image_id: imageID
+        },
+        dataType: 'json',
+        beforeSend:function() {
+         console.log("getting selected image");
+        },
+        success:function(data, textStatus, jqXHR){
+           console.log("success");
+           console.log(data);
+           $(".selected-image").attr('src',data.image_url);
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            //if fails     
+        }
       });
     }
 
@@ -519,7 +587,7 @@ import Player from '@vimeo/player';
           error: function(jqXHR, textStatus, errorThrown){
               //if fails     
           }
-      });
+        });
       
 
     }

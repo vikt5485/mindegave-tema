@@ -208,15 +208,34 @@ function make_donation() {
     wp_die();
 }
 
-add_action("wp_ajax_giv_mindegave_without", "giv_mindegave_without");
-add_action("wp_ajax_nopriv_giv_mindegave_without", "giv_mindegave_without");
+add_action("wp_ajax_giv_mindegave", "giv_mindegave");
+add_action("wp_ajax_nopriv_giv_mindegave", "giv_mindegave");
 
-function giv_mindegave_without() {
+function giv_mindegave() {
     $response = array(
         'status' => 'error'
     );
 
-   
+    $response['status'] = 'success';
+
+    echo json_encode($response);
+
+    wp_die();
+}
+
+add_action("wp_ajax_get_selected_image", "get_selected_image");
+add_action("wp_ajax_nopriv_get_selected_image", "get_selected_image");
+
+function get_selected_image() {
+    $response = array(
+        'status' => 'error'
+    );
+
+    $image_id = isset($_POST['image_id']) ? $_POST['image_id'] : null;
+
+    $image_id_int = (int)$image_id;
+
+    $response['image_url'] = wp_get_attachment_url($image_id_int);
 
     $response['status'] = 'success';
 

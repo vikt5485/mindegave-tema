@@ -45,17 +45,17 @@ img {
    .explainer {
        width: 100%;
    }
+
+   &:hover {
+    .play-btn {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
 } 
 
 video {
     object-fit: cover;
     cursor: pointer;
-
-    &:hover {
-        .play-btn {
-            transform: translate(-50%, -50%) scale(1.05);
-        }
-    }
 }
 
 .play-btn {
