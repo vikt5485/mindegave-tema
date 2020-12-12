@@ -8,4 +8,3 @@
 <link rel="mask-icon" href="<?php echo get_template_directory_uri() . '/favicon/safari-pinned-tab.svg'; ?>"
       color="#959c95">
 <meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#"ffffff>

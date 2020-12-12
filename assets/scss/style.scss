@@ -66,7 +66,6 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
-@import "global/mixins";
 
 /*Global*/
 @import "global/fonts";
@@ -75,14 +74,12 @@ Use it to make something cool, have fun, and share what you've learned with othe
 
 /*Partials*/
 @import "partials/header";
-@import "partials/sidebar";
 @import "partials/hero-banner";
-@import "partials/postformat";
+@import "partials/footer";
 
 /*PARTS*/
 @import "parts/buttons";
 @import "parts/forms";
-@import "parts/cookiebar";
 
 /*BLOCKS*/
 // Add flex blocks here
@@ -91,13 +88,8 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @import "blocks/image-video"; 
 
 /*Templates*/
-@import "templates/frontpage";
 @import "templates/archive";
 @import "templates/single";
-@import "templates/search";
 @import "templates/404";
 @import "templates/opret-mindeindsamling";
 @import "templates/giv-mindegave";
-
-/*Footer*/
-@import "partials/footer";

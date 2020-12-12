@@ -38,6 +38,13 @@ textarea {
 
 label {
   font-size: 80%;
+
+  &.required {
+    &:after {
+      content: "*";
+      color: red;
+    }
+  }
 }
 
 .donation-progress-wrapper {
@@ -76,8 +83,18 @@ input.error, textarea.error {
   background: $white;
   padding: 3rem;
   position: relative;
+
+  @include breakpoint(small down) {
+    padding: 2rem;
+  }
 }
 
 [type=range] {
   background: $white;
+}
+
+form {
+  @include breakpoint(small down) {
+    margin-top: 3rem;
+  }
 }

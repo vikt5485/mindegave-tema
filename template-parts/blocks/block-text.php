@@ -22,6 +22,5 @@
                 <div class="show-for-small-only"><?php get_template_part("template-parts/button"); ?></div>
             </div>
         <?php endif; ?>
-
     </div>
 </div>

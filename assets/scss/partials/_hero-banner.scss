@@ -1,5 +1,5 @@
 .hero-banner {
-  height: 70vh;
+  height: 80vh;
   max-height: 100vh;
   min-height: 300px;
   position: relative;
@@ -44,7 +44,23 @@
       }
   }
 
+  .kb-logo {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
 
+    h5 {
+      color: $white;
+      margin-bottom: 0;
+    }
+
+    svg {
+      width: 50px;
+      margin-right: 0.5rem;
+    }
+  }
 
   .grid-container {
     width: 100%;

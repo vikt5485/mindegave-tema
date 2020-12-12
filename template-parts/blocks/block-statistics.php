@@ -19,7 +19,7 @@
                                     $percentage = get_sub_field("percentage");
                                     $color = get_sub_field("color");
                                 ?>
-                                <div class="statistic cell small-12 medium-6 large-auto text-center">
+                                <div class="statistic cell small-6 large-auto text-center">
                                     <h4><?php echo $label; ?></h4>
                                     <canvas id="myChart-<?php echo $i; ?>"></canvas>
                                     <p><?php echo $percentage . "%"; ?></p>

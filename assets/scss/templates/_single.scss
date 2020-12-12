@@ -1,3 +1,87 @@
+.single-top {
+    position: relative;
+    
+    @include breakpoint(large up) {
+        padding-left: 2%;
+    } 
+
+    @include breakpoint(medium down) {
+        margin-top: 3rem;
+    }
+
+    .scroll-indicator {
+        svg {
+            path {
+                stroke: $theme-color;
+            }
+        }
+    }
+
+    .share-links {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+
+        @include breakpoint (medium down) {
+            top: 0;
+        }
+
+        @include breakpoint (small down) {
+            top: -2rem;
+            left: 1rem;
+        }
+
+        div {
+            font-size: 2rem;
+
+            a {
+                transition: 0.3s all;
+            }
+        }
+
+        .share-email {
+            a {
+                color: $dark-gray;
+
+                &:hover {
+                    color: $black;
+                }
+            }
+        }
+
+        .share-facebook {
+            a {
+                color: $dark-gray;
+
+                &:hover {
+                    color: rgb(0, 132, 255);
+                }
+            }
+        }
+
+        .share-twitter {
+            a {
+                color: $dark-gray;
+                
+                &:hover {
+                    color: rgb(29, 161, 242);
+                }
+            }
+        }
+
+        .share-linkedin {
+            a {
+                color: $dark-gray;
+                
+                &:hover {
+                    color: #0a66c2;
+                }
+            }
+        }
+
+    }
+}
+
 .donation-box {
     padding: 2rem;
     height: 100%!important;
@@ -29,6 +113,14 @@
     .donate-content {
         background: $white;
         padding: 3rem;
+        max-height: 90vh;
+        overflow: scroll;
+       
+        @include breakpoint(small down) {
+            padding-bottom: 0;
+            max-height: 70vh;
+            overflow: scroll;
+        }
 
         form {
             max-width: 400px;

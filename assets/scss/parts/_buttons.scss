@@ -1,13 +1,52 @@
 .button {
   border-radius: 0;
   text-decoration: none;
-  margin-top: 3rem;
+  margin-top: 1rem;
 
   font-size: inherit;
   margin-right: 0.5rem;
-  padding: 1.5rem 2.5rem;
+  // padding: 1.5rem 2.5rem;
+  transition: 0.3s transform;
+
+
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-family: $header-font-family;
+  border-radius: 2px;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 
   @include breakpoint(small down) {
-    font-size: 100%;
+    font-size: 85%;
+    margin-top: 0;
+    padding: 0.8rem 2rem;
+  }
+}
+
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: arrowAnimation 1.6s infinite cubic-bezier(.445,.05,.55,.95);
+
+  svg {
+    width: 30px;
+  }
+
+}
+
+@keyframes arrowAnimation {
+  0% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
   }
 }

@@ -16,7 +16,7 @@ function create_collection() {
     $own_donation = isset($_POST['ins_own_donation']) ? $_POST['ins_own_donation'] : null;
     $end_date = isset($_POST['ins_end_date']) ? $_POST['ins_end_date'] : null;
     $greeting = isset($_POST['ins_greeting']) ? $_POST['ins_greeting'] : null;
-    $image_id = isset($_POST['img_id']) ? $_POST['img_id'] : null;
+    $image_id = isset($_POST['img_id']) ? $_POST['img_id'] : null; 
 
 
     $personal_first_name = isset($_POST['personal_first_name']) ? sanitize_text_field($_POST['personal_first_name']) : null;
@@ -27,7 +27,7 @@ function create_collection() {
     $personal_zip = isset($_POST['personal_zip']) ? $_POST['personal_zip'] : null;
     $personal_city = isset($_POST['personal_city']) ? sanitize_text_field($_POST['personal_city']) : null;
 
-    $response['data'] = $_POST;
+    $response['data'] = $_POST; 
 
     $args = array(
         'post_type' => 'indsamlinger',
@@ -40,11 +40,24 @@ function create_collection() {
         $response['message'] = 'Billedet kunne ikke uploades. Prøv venligst igen.';
     } else {
         $post_id = wp_insert_post($args);
+        
     
         if(!is_wp_error($post_id)){
             $response['status'] = 'success';
             $response['post_id'] = $post_id;
             $response['permalink'] = get_permalink($post_id);
+
+            wp_update_post(array(
+                'ID'           => $image_id,
+                'post_title'   => $name,
+                'post_content' => "Billede af $name, som denne indsamling er til ære for.",
+                'post_excerpt' => "Billede af $name.",
+            ));
+            
+            update_post_meta($image_id, '_wp_attachment_image_alt', 'Billede af ' . $name);
+
+            set_post_thumbnail($post_id, $image_id);
+            
     
             // update_field('ins_title', $title, $post_id);
             update_field('ins_desc', $desc, $post_id);

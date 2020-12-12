@@ -17,12 +17,23 @@ get_header(); ?>
                     </form>
                     <div class="small-12 grid-x grid-margin-x grid-margin-y collections-wrapper">
                         <?php
+                            $meta_query = array(
+                                array(
+                                    'key' => 'ins_end_date',
+                                    'value' => date('Ymd'),
+                                    'type' => 'DATE',
+                                    'compare' => '>='
+                                )
+                            );
+
                             $args = array(
                                 'post_type' => 'indsamlinger',
                                 'post_status' => 'publish',
                                 'posts_per_page' => -1,
                                 'orderby' => 'date',
-                                'order' => 'DESC'
+                                'order' => 'DESC',
+                                'meta_key' => 'ins_end_date',
+                                'meta_query' => $meta_query
                             );
                             $loop = new WP_Query( $args ); 
                         ?>

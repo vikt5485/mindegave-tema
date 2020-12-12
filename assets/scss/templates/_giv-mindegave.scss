@@ -10,6 +10,11 @@
     .intro-card {
         transition: .3s all;
     }
+
+    .button-container {
+        position: relative;
+        z-index: 1000;
+    }
 }
 
 .step-active {
@@ -77,15 +82,37 @@
     right: 0;
     cursor: pointer;
     font-weight: bold;
+
+    @include breakpoint(small down) {
+        top: -3rem;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .se-kort-btn, .ret-kort-btn {
+        width: 70px;
+        margin: 0 auto;
+
+        @include breakpoint(small down) {
+            width: 50px;
+        }
+    
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    }
 }
 
 
 .flip-card-active {
     display: flex;
-    max-height: 100%;
-    opacity: 1;
-    pointer-events: all;
-    max-width: 100%;
+    // max-height: 100%;
+    // opacity: 1;
+    // pointer-events: all;
+    // max-width: 100%;
 
     &.card-preview {
         max-width: 700px;
@@ -99,10 +126,11 @@
 }
 
 .flip-card-inactive {
-    opacity: 0;
-    pointer-events: none; 
-    max-height: 0;
-    max-width: 0;
+    // opacity: 0;
+    // pointer-events: none; 
+    // max-height: 0;
+    // max-width: 0;
+    display: none;
 
     &.card-preview {
         max-width: 0;

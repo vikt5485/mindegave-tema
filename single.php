@@ -8,48 +8,83 @@
  */
 global $post;
 get_header(); ?>
+
     <div id="primary" class="content-area">
         <main id="main" class="site-main">
             <?php while(have_posts()) : the_post(); ?>
+            <?php 
+                // $title = get_field("ins_title"); 
+                $desc = get_field("ins_desc");
+                $name = get_field("ins_name"); 
+                $donation_goal = get_field("ins_goal");
+                $image = get_field("ins_images");
+                $born = get_field("ins_born");
+                $dead = get_field("ins_dead");
+                $total_donated = 0;
+
+                $end_date = get_field("ins_end_date");
+                $end_date_unix = DateTime::createFromFormat('d/m/Y', $end_date)->getTimestamp();
+                $today = time();
+                $difference = $end_date_unix - $today;
+            ?>
+            <?php if ( have_rows( 'donations' ) ) : ?>
+                <?php while ( have_rows( 'donations' ) ) : the_row(); ?>
+                    <?php 
+                        $total_donated = $total_donated + get_sub_field( 'amount' );
+                    ?>
+                <?php endwhile; ?>
+            <?php endif; ?>
                 <section class="single-top lightgray-bg">
                     <div class="grid-container">
                         <div class="grid-x grid-margin-x align-middle">
-                            <div class="cell small-12 medium-6 grid-x">
-                            <?php 
-                                // $title = get_field("ins_title"); 
-                                $desc = get_field("ins_desc");
-                                $name = get_field("ins_name"); 
-                                $donation_goal = get_field("ins_goal");
-                                $image = get_field("ins_images");
-                                $born = get_field("ins_born");
-                                $dead = get_field("ins_dead");
-                                $total_donated = 0;
-                            ?>
-                            <?php if ( have_rows( 'donations' ) ) : ?>
-                                <?php while ( have_rows( 'donations' ) ) : the_row(); ?>
-                                    <?php 
-                                      $total_donated = $total_donated + get_sub_field( 'amount' );
-                                    ?>
-                                <?php endwhile; ?>
-                            <?php endif; ?>
-
+                            <div class="cell small-12 medium-5 grid-x small-order-2 medium-order-1">
                                 <p class="small">Til minde om</p>
                                 <h2 class="small-12"><?php echo $name; ?></h2>
                                 <?php if($born && $dead) :  ?>
-                                    <p class="cell small-6"><?php echo $born . ' - ' . $dead; ?></p>
+                                    <p class="cell small-12"><?php echo $born . ' - ' . $dead; ?></p>
                                 <?php endif; ?>
                                 <p class="small-12"><?php echo $desc; ?></p>
                                 <div class="cell small-12 donation-progress-wrapper">
                                     <div class="donation-progress" style="width:<?php echo $total_donated / $donation_goal * 100 ?>%;"></div>
                                 </div>
-                                <div class="cell small-4 total-donations"><p>kr. <?php echo number_format($total_donated, 0, ",", "."); ?>,-</p></div>
+                                <div class="cell small-4 total-donations"><p><?php echo number_format($total_donated / $donation_goal * 100, 0, ",", "."); ?>%</p></div>
                                 <div class="cell small-4 end-date-preview text-center "><p></p></div>
                                 <div class="cell small-4 collection-goal text-right"><p>kr. <?php echo number_format($donation_goal, 0, ",", "."); ?>,-</p></div>
-                                <button class="button donate-btn">Støt indsamlingen her</button>
+                                <?php if($difference > 0) : ?>
+                                    <button class="button donate-btn">Støt indsamlingen her</button>
+                                    <div class="cell small-12"><p><?php echo floor($difference/60/60/24)." dage tilbage."; ?></p></div>
+                                <?php else: ?>
+                                    <div class="cell small-12"><p>Indsamlingen er udløbet.</p></div>
+                                <?php endif; ?>
                             </div>
-                            <div class="cell small-12 medium-6 single-img-container grid-x align-center">
+                            <div class="cell small-12 medium-6 medium-offset-1 single-img-container grid-x align-center small-order-1 medium-order-2">
                                 <img src="<?php echo esc_url( $image['sizes']['large'] ); ?>" class="indsamling-img" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
                             </div>
+                        </div>
+                    </div>
+                    <div class="scroll-indicator show-for-medium">
+                        <?php include(locate_template( 'assets/img/scroll-arrow.svg' )); ?>
+                    </div>
+                    <div class="share-links grid-x grid-margin-x">
+                        <div class="cell small-3 large-12 share-email">
+                            <a href="mailto:?body=Link%20til%20indsamling:%20<?php echo the_permalink(); ?>&subject=Støt%20indsamlingen%20til%20til%20minde%20om%20<?php echo $name; ?>">
+                                <i class="fas fa-envelope-square"></i>
+                            </a>
+                        </div>
+                        <div class="cell small-3 large-12 share-facebook">
+                            <a href="https://www.facebook.com/share.php?u=<?php echo the_permalink(); ?>" target="_blank">
+                                <i class="fab fa-facebook-square"></i>
+                            </a>
+                        </div>
+                        <div class="cell small-3 large-12 share-twitter">
+                            <a href="https://www.twitter.com/share?url=<?php echo the_permalink(); ?>" target="_blank">
+                                <i class="fab fa-twitter-square"></i>
+                            </a>
+                        </div>
+                        <div class="cell small-3 large-12 share-linkedin">
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -92,11 +127,11 @@ get_header(); ?>
                                             <input type="range" name="donation_range" id="donation_range" min="100" max="2000" step="50" value="100">
                                         </label>
                                         <label for="custom_donation">Eller skriv et valgfrit beløb                                
-                                            <input type="number" name="custom_donation" id="custom_donation" placeholder="Skriv et valgfrit beløb">
+                                            <input type="number" name="custom_donation" min="50" id="custom_donation" placeholder="Skriv et valgfrit beløb">
                                         </label>
                                     </div>
                                     <div class="cell small-4 text-center">
-                                        <h3 class="donation_preview">kr. 100,-</h3>
+                                        <h3 class="donation_preview">kr. 50,-</h3>
                                     </div>
                                 </div>
                                 <label for="personal_donation">
@@ -117,7 +152,8 @@ get_header(); ?>
                             </div>
 
                             <div class="form-thank-you remove-step">
-                                <h4>Tak for din donation</h4>
+                                <h2>Tak for din donation</h2>
+                                <strong>Hilsen fra indsamler:</strong>
                                 <p><?php echo get_field("ins_greeting"); ?></p>
                                 <p>Genindlæs siden, for at se din donation.</p>
                             </div>

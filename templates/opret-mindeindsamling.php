@@ -10,47 +10,46 @@ get_header(); ?>
             <!-- <?php get_template_part('template-parts/hero', 'banner'); ?> -->
             <section>
                 <div class="grid-container opret-mindeindsamling-container">
-                    <h2 class="collection-header small-h1">Opret en Mindeindsamling</h2>
+                    <h2 class="collection-header small-h1">Opret en indsamling</h2>
                     <p class="collection-text">Nedenstående info vil blive vist offentligt i forbindelse med din indsamling.</p>
                     <form method="post" class="margin-top-small" data-create-collection id="opret-mindeindsamling-form" name="opret-mindeindsamling-form" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="create_collection">
                         <div class="step step-1 step-active show-step grid-x grid-margin-x">
-                            <h4 class="small-12 cell">Hvem er mindeindsamlingen til?</h4>
+                            <h4 class="small-12 cell">Hvem er indsamlingen til minde om?</h4>
                             <div class="cell small-12 medium-6"> 
-                                <label for="ins_name">Til minde om
-                                    <input type="text" name="ins_name" id="ins_name" placeholder="Til minde om" required>
-                                </label>
+                                <label for="ins_name" class="required">Til minde om</label>
+                                <input type="text" name="ins_name" id="ins_name" placeholder="Til minde om" required>
+                                
                                 <div class="grid-x grid-margin-x">
-                                    <label class="cell small-6" for="ins_born">Fødedato
+                                    <div class="cell small-6">
+                                        <label for="ins_born">Fødedato (valgfri)</label>
                                         <input type="date" name="ins_born" id="ins_born" placeholder="Født"></input>
-                                    </label>
-                                    <label class="cell small-6" for="ins_dead">Dødsdato
-                                        <input type="date" name="ins_dead" id="ins_dead" placeholder="Død"></input>
-                                    </label>
+                                    </div>
+                                    <div class="cell small-6">
+                                        <label class="cell small-6" for="ins_dead">Dødsdato (valgfri)</label>
+                                        <input type="date" name="ins_dead" id="ins_dead" placeholder="Død"></input>                                    
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="cell small-12 medium-6">
-                                <label for="ins_desc">Hvorfor samler du ind til Kræftens Bekæmpelse?
-                                    <textarea rows="4" name="ins_desc" id="ins_desc" placeholder="Skriv et par linjer, om hvorfor du samler ind til Kræftens Bekæmpelse" required></textarea>
-                                </label>
+                                <label for="ins_desc" class="required">Hvorfor samler du ind til Kræftens Bekæmpelse?</label>
+                                <textarea rows="4" name="ins_desc" id="ins_desc" placeholder="Skriv et par linjer, om hvorfor du samler ind til Kræftens Bekæmpelse" required></textarea>
                             </div>
                         </div>
                         <div class="step step-2 grid-x grid-margin-x remove-step">
                             <h4 class="small-12 cell">Hvad er målet for indsamlingen?</h4>
                             <div class="cell small-12 medium-4">
-                                <label for="ins_goal">Indsamlingens mål i kr.
-                                    <input type="number" name="ins_goal" id="ins_goal" placeholder="Indsamlingens mål i kr." required>
-                                </label>
+                                <label for="ins_goal" class="required">Indsamlingens mål i kr.</label>
+                                <input type="number" name="ins_goal" id="ins_goal" placeholder="Indsamlingens mål i kr." required>
                             </div>
                             <div class="cell small-12 medium-4">
-                                <label for="ins_own_donation">Din egen donation
-                                    <input type="number" name="ins_own_donation" id="ins_own_donation" placeholder="Din egen donation">
-                                </label>
+                                <label for="ins_own_donation">Din egen donation (min. kr. 50,-) (valgfri)</label>
+                                <input type="number" name="ins_own_donation" id="ins_own_donation" min="50" placeholder="Din egen donation">
                             </div>
                             <div class="cell small-12 medium-4">
-                                <label for="ins_end_date">Hvornår slutter din indsamling?
-                                    <input type="date" name="ins_end_date" id="ins_end_date" required>
-                                </label>
+                                <label for="ins_end_date" class="required">Hvornår slutter din indsamling?</label>
+                                <input type="date" name="ins_end_date" id="ins_end_date" required>
                             </div>
                             <div class="cell small-6"><p>Start</p></div>
                             <div class="cell small-6 text-right"><p>Mål</p></div>
@@ -64,22 +63,28 @@ get_header(); ?>
                         <div class="step step-3 grid-x grid-margin-x remove-step">
                             <h4 class="small-12 cell">Personliggør indsamlingen</h4>
                             <div class="cell small-12 medium-6">
-                                <label for="ins_greeting">Personlig hilsen til donorer
-                                    <textarea rows="4" name="ins_greeting" id="ins_greeting" placeholder="Skriv en hilsen, til dem der donerer til din indsamling"></textarea>
-                                </label>
-                                <label for="ins_images">Sæt et (eller flere) billede på indsamlingen
-                                   <input type="file" name="ins_images" size="1" id="ins_images" required>
-                                </label>
+                                <label for="ins_greeting">Personlig hilsen til donorer (valgfri)</label>
+                                <textarea rows="4" name="ins_greeting" id="ins_greeting" placeholder="Skriv en hilsen, til dem der donerer til din indsamling"></textarea>
+                                <label for="ins_images">Vælg dit eget billede til indsamlingen (valgfri)</label>
+                                <input type="file" name="ins_images" size="1" id="ins_images">
                             </div>
-                            <div class="cell small-12 medium-6 grid-x">                        
+                            <div class="cell small-12 medium-6">                        
                                 <label class="small-12" for="">Valgt billede:</label>
-                               <img class="ins-images-preview" src="" alt="">
+                                <?php
+                                $default_image = get_field( 'default_image' );
+                                if ( $default_image ) : ?>
+                                    <img class="ins-images-preview" src="<?php echo esc_url( $default_image['url'] ); ?>" alt="<?php echo esc_attr( $default_image['alt'] ); ?>">
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="step step-4 grid-x grid-margin-x align-middle remove-step">
                             <h4 class="small-12 cell">Forhåndsvisning af indsamlingen</h4>
-                            <div class="cell small-12 medium-6 grid-x">
-                                <img class="ins-images-preview" src="" alt="">
+                            <div class="cell small-12 medium-6">
+                                <?php
+                                $default_image = get_field( 'default_image' );
+                                if ( $default_image ) : ?>
+                                    <img class="ins-images-preview" src="<?php echo esc_url( $default_image['url'] ); ?>" alt="<?php echo esc_attr( $default_image['alt'] ); ?>">
+                                <?php endif; ?>
                             </div>
                             <div class="cell small-12 medium-6 grid-x">
                                <p class="cell small-12 small">Til minde om</p>
@@ -99,35 +104,28 @@ get_header(); ?>
                         <div class="step step-5 grid-x grid-margin-x remove-step">
                             <h4 class="small-12 cell">Personlige oplysninger</h4>
                             <div class="cell small-12 medium-6">
-                                <label for="personal_first_name">Fornavn
-                                    <input type="text" name="personal_first_name" id="personal_first_name" placeholder="Fornavn" required>
-                                </label>
-                                <label for="personal_last_name">Efternavn
-                                    <input type="text" name="personal_last_name" id="personal_last_name" placeholder="Efternavn" required>
-                                </label>
-                                <label for="personal_email">E-mail
-                                    <input type="email" name="personal_email" id="personal_email" placeholder="E-mail" required>
-                                </label>
+                                <label for="personal_first_name" class="required">Fornavn</label>
+                                <input type="text" name="personal_first_name" id="personal_first_name" placeholder="Fornavn" required>
+                                <label for="personal_last_name" class="required">Efternavn</label>
+                                <input type="text" name="personal_last_name" id="personal_last_name" placeholder="Efternavn" required>
+                                <label for="personal_email" class="required">E-mail</label>
+                                <input type="email" name="personal_email" id="personal_email" placeholder="E-mail" required>
                             </div>
                             <div class="cell small-12 medium-6">
-                                <label for="personal_phone">Telefonnr.
-                                    <input type="tel" name="personal_phone" id="personal_phone" placeholder="Telefonnr." required>
-                                </label>
-                                <label for="personal_address">Adresse
-                                    <input type="text" name="personal_address" id="personal_address" placeholder="Adresse" required>
-                                </label>
+                                <label for="personal_phone" class="required">Telefonnr.</label>
+                                <input type="tel" name="personal_phone" id="personal_phone" placeholder="Telefonnr." required>
+                                <label for="personal_address" class="required">Adresse</label>
+                                <input type="text" name="personal_address" id="personal_address" placeholder="Adresse" required>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell small-4">
-                                        <label for="personal_zip">Postnr.
-                                            <input type="number" name="personal_zip" id="personal_zip" placeholder="Postnr." required>
-                                        </label>
+                                        <label for="personal_zip" class="required">Postnr.</label>
+                                        <input type="number" name="personal_zip" id="personal_zip" placeholder="Postnr." required>
                                     </div>
                                     <div class="cell small-8">
-                                        <label for="personal_city">By
-                                            <input type="text" name="personal_city" id="personal_city" placeholder="By" required>
-                                        </label>
+                                        <label for="personal_city" class="required">By</label>
+                                        <input type="text" name="personal_city" id="personal_city" placeholder="By" required>
                                     </div>
-                                    <label for="personal_consent">
+                                    <label for="personal_consent" class="required">
                                         <input type="checkbox" name="personal_consent" id="personal_consent" required>
                                         Jeg accepterer <a href="#">vilkår og betingelser</a> samt Kræftens Bekæmpelses <a href="#">privatlivspolitik</a>.
                                     </label>

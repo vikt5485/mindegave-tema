@@ -35,16 +35,22 @@ header.site-header {
     }
   }
 
-  #primary-menu li {
-    transition: 0.3s all;
+  #primary-menu, #primary-burger-menu {
+    li {
+      transition: 0.3s all;
+    }
+  } 
+
+  #primary-menu, #primary-burger-menu {
+    &:hover > li {
+      opacity: 0.5;
+    }
   }
 
-  #primary-menu:hover > li {
-    opacity: 0.5;
-  }
-
-  #primary-menu li:hover {
-    opacity: 1;
+  #primary-menu, #primary-burger-menu {
+    li:hover {
+      opacity: 1;
+    }
   }
 
   .sub-menu {
@@ -70,6 +76,7 @@ header.site-header {
 
     a {
       padding: 2rem 1.5rem;
+      cursor: pointer;
     }
   }
 

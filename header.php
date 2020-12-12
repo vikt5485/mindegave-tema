@@ -14,6 +14,10 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Overskrift.woff" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Overskrift.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Regular.woff" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="/wp-content/themes/mindegave-tema/dist/assets/fonts/Fighter-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -24,7 +28,7 @@
         <header id="masthead" class="site-header">
             <div class="grid-container">
                 <div class="grid-x grid-margin-x align-middle">
-                    <div class="cell small-8 large-4">
+                    <div class="cell small-8 large-3">
                         <div class="site-branding">
                             <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
                                 <?php include(locate_template( 'assets/img/logo.svg' )); ?>
@@ -34,21 +38,21 @@
                             </a>
                         </div>
                     </div>
-                    <div class="cell small-4 large-8 grid-x align-right">
+                    <div class="cell small-4 large-9 grid-x align-right">
                         <div class="burger"> 
                             <span></span>
                         </div>
-                        <nav id="burger-menu" class="main-navigation">
+                        <nav id="burger-menu" class="main-navigation hide-for-large">
                             <?php wp_nav_menu(array(
                                 'theme_location' => 'menu-1',
-                                'menu_id' => 'primary-menu',
+                                'menu_id' => 'primary-burger-menu',
                                 'menu_class' => 'menu align-left'
                             )); ?>
                         </nav>
                         <div class="burger-menu-overlay">
 
                         </div>
-                        <nav id="site-navigation" class="main-navigation">
+                        <nav id="site-navigation" class="main-navigation show-for-large">
                             <?php wp_nav_menu(array(
                                 'theme_location' => 'menu-1',
                                 'menu_id' => 'primary-menu',

@@ -5,6 +5,18 @@
         position: relative;
         overflow: hidden;
 
+        &:nth-child(1) {
+            @include breakpoint(medium down) {
+                margin-bottom: 5rem;
+            }
+        }
+
+        &:nth-child(3) {
+            @include breakpoint(medium down) {
+                margin-bottom: 5rem;
+            }
+        }
+
         &::before {
             content: "";
             padding-top: 100%;

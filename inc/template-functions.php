@@ -143,14 +143,14 @@ function login_logo()
         }
 
         body.login .button-primary {
-            background: #F0001E;
+            background: #204022;
             color: #fff;
-            border-color: #F0001E;
+            border-color: #204022;
         }
 
         body.login .button-primary:hover {
-            background: #F0001E;
-            border-color: #F0001E;
+            background: #204022;
+            border-color: #204022;
         }
 
         body.login #nav, body.login #backtoblog {
@@ -163,7 +163,7 @@ function login_logo()
         }
 
         body.login #backtoblog a:hover, body.login #nav a:hover {
-            color: #F0001E;
+            color: #204022;
         }
 
         body.login input:focus {
@@ -173,7 +173,7 @@ function login_logo()
         }
 
         body.login #login_error, body.login .message, body.login .success {
-            border-color: #F0001E;
+            border-color: #204022;
         }
 
         body.login input[type=checkbox]:focus {
@@ -181,18 +181,18 @@ function login_logo()
         }
 
         body.login .button.wp-hide-pw .dashicons {
-            color: #F0001E;
+            color: #204022;
         }
 
         body.login input[type=checkbox]:checked {
             outline: none;
             box-shadow: none;
-            border-color: #F0001E;
+            border-color: #204022;
         }
 
         body.login input[type=checkbox]:checked::before {
             content: '';
-            background: #F0001E;
+            background: #204022;
             width: 10px;
             height: 10px;
             /* position: absolute; */
@@ -211,14 +211,6 @@ function my_custom_login_url($url) {
     return get_home_url();
 }
 
-// Google analytics function
-function display_google_analytics()
-{
-    if( class_exists('acf') ) {
-        $google_analytics = get_field('google_analytics_code', 'options');
-        echo $google_analytics;
-    }
-}
 
 function limit_text($x, $length)
 {
@@ -241,80 +233,8 @@ function get_theme_address()
     }
 }
 
-function get_theme_company_name()
-{
-    if( class_exists('acf') ) {
-        $company_info = get_field('company_info', 'options');
-        $company_name = $company_info['company_name'];
-        return $company_name;
-    } else {
-        return null;
-    }
-}
 
-function get_theme_postalnumber()
-{
-    if( class_exists('acf') ) {
-        $company_info = get_field('company_info', 'options');
-        $postalnumber = $company_info['postalnumber'];
-        return $postalnumber;
-    } else {
-        return null;
-    }
-}
 
-function get_theme_city()
-{
-    if( class_exists('acf') ) {
-        $company_info = get_field('company_info', 'options');
-        $city = $company_info['city'];
-        return $city;
-    } else {
-        return null;
-    }
-}
-
-function get_theme_company_phone()
-{
-    if( class_exists('acf') ) {
-        $company_info = get_field('company_info', 'options');
-        $company_phone = $company_info['company_phone'];
-        return $company_phone;
-    } else {
-        return null;
-    }
-}
-
-function get_theme_company_email()
-{
-    if( class_exists('acf') ) {
-        $company_info = get_field('company_info', 'options');
-        $company_email = $company_info['company_email'];
-        return $company_email;
-    } else {
-        return null;
-    }
-}
-
-function get_social_media()
-{
-    if( class_exists('acf') ) {
-        if( have_rows('social_media_channels', 'options') ):
-            $social_media = array();
-            while(have_rows('social_media_channels', 'options')) : the_row();
-                $link = get_sub_field('link');
-                $icon = get_sub_field('font_awesome_icon');
-
-                $social_media[] = array(
-                    'link' => $link,
-                    'icon' => $icon);
-            endwhile;
-            return $social_media;
-        endif;
-    } else {
-        return null;
-    }
-}
 
 /************************
  * Removing default favicon and adding custom favicon
@@ -474,20 +394,3 @@ function wpdocs_excerpt_more($more)
 }
 
 add_filter('excerpt_more', 'wpdocs_excerpt_more');
-
-/*Open head scriots for Google Tag Manager*/
-function theme_head_scripts() {
-    if (class_exists('ACF') && get_field('theme_head_scripts', 'options')) {
-        the_field('theme_head_scripts', 'options');
-    }
-}
-add_action('wp_head', 'theme_head_scripts', 1);
-
-/*Open body scriots for Google Tag Manager*/
-function theme_body_scripts() {
-    if (class_exists('ACF') && get_field('theme_body_scripts', 'options')) {
-        the_field('theme_body_scripts', 'options');
-    }
-}
-
-add_action('theme_body_scripts', 'theme_body_scripts');

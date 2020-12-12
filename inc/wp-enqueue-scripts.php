@@ -3,6 +3,7 @@ function custom_scripts()
 {
     // Styles
     wp_enqueue_style('custom-style', get_template_directory_uri().'/dist/assets/css/style.css');
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
 
     // theme scripts
     wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/dist/assets/js/app.js', array('jquery'), '20151215', true);

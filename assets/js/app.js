@@ -12,6 +12,11 @@ import Player from '@vimeo/player';
 
 (function ($) {
   $(document).ready(function () {
+    let currentURL = window.location;
+    if(currentURL.hostname != "localhost") {
+      console.log = function () {};
+    }
+
     // Loaded when DOM is ready
     console.log("Running jQuery");
 
@@ -82,7 +87,7 @@ import Player from '@vimeo/player';
       let loading = false;
       $("body").removeClass("form-loading");
       
-      let validator = $("[data-create-mindegave]").validate({
+      let validatorWith = $("[data-create-mindegave-with]").validate({
         messages: {
           mindegave_name: 'Angiv venligst navnet på afdøde.',
           mindegave_greeting: 'Skriv venligst en hilsen.',
@@ -108,13 +113,54 @@ import Player from '@vimeo/player';
         submitHandler: function(form) {
           data = $(form).serialize();
 
-          $("#giv-mindegave-form-without .step-2").removeClass("step-active");
-          $("#giv-mindegave-form-without .step-2").addClass("remove-step");
-          $("#giv-mindegave-form-without .prev").attr("disabled", "true");
-
           $("#giv-mindegave-form-with .step-3").removeClass("step-active");
           $("#giv-mindegave-form-with .step-3").addClass("remove-step"); 
           $("#giv-mindegave-form-with .prev").attr("disabled", "true");  
+ 
+          do_ajax(data, loading, function(res) {
+            console.log(res);
+            if(res.status == "success") {
+              //Handle success
+              $(".collection-header").remove();
+              $(".collection-text").remove();
+              $("#giv-mindegave-form-without").remove();
+              $("#giv-mindegave-form-with").remove();
+              $(".button-container").remove();
+              $(".thank-you-step").removeClass("remove-step");
+              $(".thank-you-step").addClass("step-active");
+            } else if(res.status == "error") {
+              //Handle error
+            }
+          })
+        }
+      })
+
+      let validatorWithout = $("[data-create-mindegave-without]").validate({
+        messages: {
+          mindegave_first_name: 'Angiv venligst dit fornavn.',
+          mindegave_last_name: 'Angiv venligst dit efternavn.',
+          mindegave_email: 'Angiv venligst din e-mail.',
+          mindegave_phone: 'Angiv venligst dit telefonnr.',
+          mindegave_address: 'Angiv venligst din adresse.',
+          mindegave_zip: 'Angiv venligst dit postnr.',
+          mindegave_city: 'Angiv venligst din by.',
+          mindegave_donation: 'Skriv venligst hvor meget du vil donere.',
+          mindegave_name_dead: 'Angiv venligst navnet på afdøde.',
+          mindegave_name_relative: 'Angiv venligst navnet på nærmeste pårørende.',
+          mindegave_relative_address: 'Angiv venligst adressen på nærmeste pårørende',
+          mindegave_relative_zip: 'Angiv venligst postnr. på nærmeste pårørende',
+          mindegave_relative_city: 'Angiv venligst by på nærmeste pårørende',
+          mindegave_consent: 'Accepter venligst vilkår og betingelser samt privatlivspolitik.'
+        },
+        errorPlacement: function(error, element) {
+          error.appendTo(".error-container");
+        },
+        submitHandler: function(form) {
+          data = $(form).serialize();
+
+          $("#giv-mindegave-form-without .step-2").removeClass("step-active");
+          $("#giv-mindegave-form-without .step-2").addClass("remove-step");
+          $("#giv-mindegave-form-without .prev").attr("disabled", "true");
  
           do_ajax(data, loading, function(res) {
             console.log(res);
@@ -218,13 +264,25 @@ import Player from '@vimeo/player';
           $(".card-option").click({ direction: "next", selector: '.mindegave-' + e.data.type + '-container form' }, changeFormSlide);
           $(".card-option").click(getSelectedImage);
 
+          $("#giv-mindegave-form-with input").on("input", function() {
+            $(".flip-card").css("display", "block");
+          })
+
+          $("#giv-mindegave-form-with textarea").on("input", function() {
+            $(".flip-card").css("display", "block");
+          })
+
           $(".flip-card").click(function() {
             $(".flip-card-toggle").toggleClass("flip-card-inactive flip-card-active");
 
             if($(".card-preview").hasClass("flip-card-active")) {
               $(".flip-card p").text("Ret kort");
+              $(".ret-kort-btn").css("display", "block");
+              $(".se-kort-btn").css("display", "none");
             } else {
               $(".flip-card p").text("Se kort");
+              $(".se-kort-btn").css("display", "block");
+              $(".ret-kort-btn").css("display", "none");
             }
 
             $(".name-preview").text($("#mindegave_name").val());
@@ -451,15 +509,35 @@ import Player from '@vimeo/player';
         },
         submitHandler: function(form) {
           data = $(form).serialize();
+          console.log(data);
           var uploadData = new FormData(form);
           $("#opret-mindeindsamling-form .step-5").removeClass("step-active");
           $("#opret-mindeindsamling-form .step-5").addClass("remove-step");
           $("#opret-mindeindsamling-form .prev").attr("disabled", "true");
-          
-          uploadImage(uploadData, function(res) {
-            console.log(res);
-            data = data + "&img_id=" + res;
-            console.log(data);
+
+          if($("#ins_images").val()) {
+            uploadImage(uploadData, function(res) {
+              console.log(res);
+              data = data + "&img_id=" + res;
+              console.log(data);
+              do_ajax(data, loading, function(res) {
+                console.log(res);
+                if(res.status == "success") {
+                  //Handle success
+                  $(".collection-header").remove();
+                  $(".collection-text").remove();
+                  $(".button-container").remove();
+                  $(".dots").remove();
+                  $(".collection-link").attr("href", res.permalink);
+                  $(".thank-you-step").removeClass("remove-step");
+                  $(".thank-you-step").addClass("step-active");
+                } else if(res.status == "error") {
+                  //Handle error
+                }
+              })
+            });
+          } else {
+            data = data + "&img_id=249";
             do_ajax(data, loading, function(res) {
               console.log(res);
               if(res.status == "success") {
@@ -475,7 +553,8 @@ import Player from '@vimeo/player';
                 //Handle error
               }
             })
-          });
+          }
+          
         }
       })
 
@@ -495,7 +574,7 @@ import Player from '@vimeo/player';
 
       $("#custom_donation").on("input", function() {
         $(".donation_preview").text("kr. " + formatNumber($("#custom_donation").val()) + ",-");
-        $("#donation_range").val(100);
+        $("#donation_range").val(50);
       });
 
       $("[name=donation_type]").on("input", function() {
@@ -550,9 +629,6 @@ import Player from '@vimeo/player';
             loading = true;
             $("body").addClass("form-loading");
             $("#opret-mindeindsamling-form [type=submit]").attr("disabled", "true");
-
-
-            console.log("beforeSend");
           },
           success: function(res) {
             loading = false;
@@ -569,6 +645,8 @@ import Player from '@vimeo/player';
     }
 
     function uploadImage(uploadData, cb) {
+      console.log("UPLOAD DATA:");
+      console.log(uploadData);
 
         $.ajax({
           url : site_vars.process_upload_url,

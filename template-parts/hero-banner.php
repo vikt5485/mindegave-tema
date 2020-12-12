@@ -20,13 +20,13 @@
 <?php if($style == "narrow") : ?>
     <div class="hero-banner narrow <?php echo $thumbnail ? "has-thumbnail" : ""; ?>" <?php echo $thumbnail ? "style='background-image: url(" . $thumbnail . ");'" : ""; ?>>
 <?php else : ?>
-    <section class="hero-banner <?php echo $video_placeholder ? "has-video" : ""; ?>">
+    <section class="hero-banner <?php echo $video_placeholder ? "has-video" : ""; ?> <?php echo $thumbnail ? "has-thumbnail" : ""; ?>" <?php echo $thumbnail && $video_placeholder == false ? "style='background-image: url(" . $thumbnail . ");'" : ""; ?>>
 <?php endif; ?>
     <?php if(is_front_page()) : ?>
         <?php if($video_placeholder) : ?>
             <div id="hero">
-                <video playsinline autoplay muted loop poster="<?php echo $video_placeholder['url']; ?>" id="bgvideo" width="x" height="y">
-                    <source src="<?php echo get_template_directory_uri() . "/assets/video/video-test.mp4" ?>" type="video/mp4">
+                <video playsinline autoplay muted loop poster="<?php echo $video_placeholder['url']; ?>" id="bgvideo">
+                    <source src="<?php echo get_template_directory_uri() . "/assets/video/splash-video.mp4" ?>" type="video/mp4">
                 </video>
             </div>
             <div class="grid-container">
@@ -40,15 +40,18 @@
             </div>
         <?php else: ?>
             <div class="grid-container">
-                <h1><?php echo $headline; ?></h1>
-                <?php if($subheadline) : ?>
-                    <h3><?php echo $subheadline; ?></h3>
-                <?php endif; ?>
+                <?php echo $text; ?>
                 <?php if ( $link ) :?>
                     <a class="button" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
                 <?php endif; ?>
+                <?php if ( $link_2 ) :?>
+                    <a class="button" href="<?php echo esc_url( $link_url_2 ); ?>" target="<?php echo esc_attr( $link_target_2 ); ?>"><?php echo esc_html( $link_title_2 ); ?></a>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
+        <div class="scroll-indicator show-for-medium">
+            <?php include(locate_template( 'assets/img/scroll-arrow.svg' )); ?>
+        </div>
     <?php else: ?>
         <div class="grid-container">
             <h1><?php echo $headline; ?></h1>
@@ -62,7 +65,15 @@
     <?php endif; ?>
 
 <?php if($style == "narrow") : ?>
+    <div class="kb-logo">
+        <?php include(locate_template( 'assets/img/logo-kb.svg' )); ?>
+        <h5 >Kræftens<br>Bekæmpelse</h5>
+    </div>
     </div>
 <?php else : ?>
+    <div class="kb-logo">
+        <?php include(locate_template( 'assets/img/logo-kb.svg' )); ?>
+        <h5 >Kræftens<br>Bekæmpelse</h5>
+    </div>
     </section>
 <?php endif; ?>

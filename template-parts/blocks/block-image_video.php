@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="video-popup">
-                        <?php echo $video; ?>
+                        <?php echo str_replace('frameborder="0"', "", $video); ?>
                     </div>
                 <?php endif; ?>
             </div>
