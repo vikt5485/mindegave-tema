@@ -27,7 +27,6 @@ import $ from "jquery";
     videoPopup();  
     createStatistics();
     givMindegave();
-    toggleVideoPlayState();
 
     function toggleVideoPlayState() {
       if(document.querySelector(".explainer").paused) {

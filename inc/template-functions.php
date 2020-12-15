@@ -11,29 +11,8 @@
  * @param array $classes Classes for the body element.
  * @return array
  */
-function custom_body_classes($classes)
-{
-    // Adds a class of hfeed to non-singular pages.
-    if( ! is_singular() ) {
-        $classes[] = 'hfeed';
-    }
 
-    return $classes;
-}
 
-add_filter('body_class', 'custom_body_classes');
-
-/**
- * Add a pingback url auto-discovery header for singularly identifiable articles.
- */
-function custom_pingback_header()
-{
-    if( is_singular() && pings_open() ) {
-        echo '<link rel="pingback" href="', esc_url(get_bloginfo('pingback_url')), '">';
-    }
-}
-
-add_action('wp_head', 'custom_pingback_header');
 
 //Remove Emoji
 remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -222,20 +201,6 @@ function limit_text($x, $length)
     }
 }
 
-function get_theme_address()
-{
-    if( class_exists('acf') ) {
-        $company_info = get_field('company_info', 'options');
-        $address = $company_info['addresse'];
-        return $address;
-    } else {
-        return null;
-    }
-}
-
-
-
-
 /************************
  * Removing default favicon and adding custom favicon
  ************************/
@@ -259,107 +224,6 @@ function remove_customize($wp_admin_bar)
     $wp_admin_bar->remove_menu('comments');
 }
 
-/***************************************
- * Styling admin bar
- ***************************************/
-add_action('admin_head', 'admin_dashboard_styling', 100);
-
-function admin_dashboard_styling()
-{
-
-    if( ! class_exists('acf') ) {
-        return;
-    }
-
-    $theme_color = get_field('admin_dashboard_bg', 'options');
-
-    if( $theme_color ):
-        echo '<style>
-    #adminmenu li.menu-top:hover, #adminmenu li.opensub>a.menu-top, #adminmenu li>a.menu-top:focus {
-      color: ' . $theme_color . '!important;
-    } 
-    
-    #wpadminbar .quicklinks .menupop ul li .ab-item:hover, #wpadminbar .ab-top-menu>li.hover>.ab-item, #wpadminbar.nojq .quicklinks .ab-top-menu>li>.ab-item:focus, #wpadminbar:not(.mobile) .ab-top-menu>li:hover>.ab-item, #wpadminbar:not(.mobile) .ab-top-menu>li>.ab-item:focus{
-    color: ' . $theme_color . '!important;
-    }
-    
-    .wp-core-ui .button-primary{
-    background: ' . $theme_color . ' !important;
-    border: transparent !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    }
-    
-    #adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head, #adminmenu .wp-menu-arrow, #adminmenu .wp-menu-arrow div, #adminmenu li.current a.menu-top, #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu, .folded #adminmenu li.current.menu-top, .folded #adminmenu li.wp-has-current-submenu{
-        background: ' . $theme_color . ' ! important;
-    }
-    
-    #adminmenu li a:focus div.wp-menu-image:before, #adminmenu li.opensub div.wp-menu-image:before, #adminmenu li:hover div.wp-menu-image:before, #collapse-menu *:hover, .wp-submenu *:hover{
-        color: ' . $theme_color . ' ! important;
-    }
-    
-    #adminmenu li .wp-menu-name:hover{
-        color: ' . $theme_color . ' ! important;   
-    }
-    </style > ';
-    endif;
-}
-
-
-function custom_get_menu_item($name = null)
-{
-    $menu_name = $name;
-    $locations = get_nav_menu_locations();
-    $menu_id = $locations[$menu_name];
-    $footer_menu = wp_get_nav_menu_object($menu_id);
-    return $footer_menu;
-}
-
-/* ---------------------------------------------------------------------------
- * ADMIN PAGE: REGISTER CSS & JS FOR VISUALIZATION OF FLEXIBLE CONTENT
- * --------------------------------------------------------------------------- */
-//add_action('admin_enqueue_scripts', 'acf_flexible_content_thumbnail');
-function acf_flexible_content_thumbnail()
-{
-    // REGISTER ADMIN.CSS
-    wp_enqueue_style('css-theme-admin', get_template_directory_uri() . '/css/admin.css', false, 1.0);
-
-    // REGISTER ADMIN.JS
-    wp_register_script('js-theme-admin', get_template_directory_uri() . '/js/admin.js', array('jquery'), 1.0, true);
-    wp_localize_script('js-theme-admin', 'theme_var',
-        array(
-            'upload' => get_template_directory_uri() . '/img/acf/',
-        )
-    );
-    wp_enqueue_script('js-theme-admin');
-}
-
-/* ---------------------------------------------------------------------------
- * Remove menus if not user: cmadmin
- * --------------------------------------------------------------------------- */
-add_action('admin_menu', 'remove_menu_items', 999);
-function remove_menu_items()
-{
-    //If user is not cmadmin
-    if( get_current_user_id() !== 1 ):
-        remove_menu_page('edit.php?post_type=acf-field-group');
-    endif;
-    //remove_menu_page('index.php');
-    //remove_submenu_page( 'themes.php', 'widgets.php' );
-}
-
-/* ---------------------------------------------------------------------------
- * Set hreflang="x-default" according to Google content guidelines with WPML
- * --------------------------------------------------------------------------- */
-add_filter('wpml_alternate_hreflang', 'wps_head_hreflang_xdefault', 10, 2);
-function wps_head_hreflang_xdefault($url, $lang_code)
-{
-    if( $lang_code == apply_filters('wpml_default_language', NULL) ):
-        echo '<link rel="alternate" href="' . $url . '" hreflang="x-default" />';
-    endif;
-
-    return $url;
-}
 
 function cc_mime_types($mimes)
 {
@@ -368,29 +232,3 @@ function cc_mime_types($mimes)
 }
 
 add_filter('upload_mimes', 'cc_mime_types');
-
-/**
- * Filter the except length to 20 words.
- *
- * @param int $length Excerpt length.
- * @return int (Maybe) modified excerpt length.
- */
-function wpdocs_custom_excerpt_length($length)
-{
-    return 14;
-}
-
-add_filter('excerpt_length', 'wpdocs_custom_excerpt_length', 999);
-
-/**
- * Filter the excerpt "read more" string.
- *
- * @param string $more "Read more" excerpt string.
- * @return string (Maybe) modified "read more" excerpt string.
- */
-function wpdocs_excerpt_more($more)
-{
-    return '...';
-}
-
-add_filter('excerpt_more', 'wpdocs_excerpt_more');
