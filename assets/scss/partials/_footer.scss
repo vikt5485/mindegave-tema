@@ -4,6 +4,7 @@ footer.site-footer {
   align-self: flex-end;
   width: 100%;
   padding: 2rem 0;
+  position: relative;
 
   .menu {
    @include breakpoint(small down) {
@@ -23,5 +24,15 @@ footer.site-footer {
 
   svg {
     fill: currentColor;
+  }
+
+  .disclaimer {
+    font-style: italic;
+    font-size: 80%;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    margin-bottom: 0;
+    text-align: right;
   }
 }

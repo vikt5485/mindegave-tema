@@ -67,22 +67,22 @@ get_header(); ?>
                     </div>
                     <div class="share-links grid-x grid-margin-x">
                         <div class="cell small-3 large-12 share-email">
-                            <a href="mailto:?body=Link%20til%20indsamling:%20<?php echo the_permalink(); ?>&subject=Støt%20indsamlingen%20til%20til%20minde%20om%20<?php echo $name; ?>">
-                                <i class="fas fa-envelope-square"></i>
+                            <a title="Del via e-mail" href="mailto:?body=Link%20til%20indsamling:%20<?php echo the_permalink(); ?>&subject=Støt%20indsamlingen%20til%20til%20minde%20om%20<?php echo $name; ?>">
+                              <i class="fas fa-envelope-square"></i>
                             </a>
                         </div>
                         <div class="cell small-3 large-12 share-facebook">
-                            <a href="https://www.facebook.com/share.php?u=<?php echo the_permalink(); ?>" target="_blank">
+                            <a title="Del via Facebook" href="https://www.facebook.com/share.php?u=<?php echo the_permalink(); ?>" target="_blank">
                                 <i class="fab fa-facebook-square"></i>
                             </a>
                         </div>
                         <div class="cell small-3 large-12 share-twitter">
-                            <a href="https://www.twitter.com/share?url=<?php echo the_permalink(); ?>" target="_blank">
+                            <a title="Del via Twitter" href="https://www.twitter.com/share?url=<?php echo the_permalink(); ?>" target="_blank">
                                 <i class="fab fa-twitter-square"></i>
                             </a>
                         </div>
                         <div class="cell small-3 large-12 share-linkedin">
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>" target="_blank">
+                            <a title="Del via LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>" target="_blank">
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         </div>
@@ -114,6 +114,7 @@ get_header(); ?>
                 <?php endif; ?>
 
                 <div class="donate-popup">
+                    <div class="close-btn"><?php include(locate_template( 'assets/img/close-btn.svg' )); ?></div>
                     <div class="donate-content grid-container">
                         <form method="post" data-make-donation id="make-donation-form" name="make-donation-form">
                             <input type="hidden" name="action" value="make_donation">
@@ -153,8 +154,10 @@ get_header(); ?>
 
                             <div class="form-thank-you remove-step">
                                 <h2>Tak for din donation</h2>
-                                <strong>Hilsen fra indsamler:</strong>
-                                <p><?php echo get_field("ins_greeting"); ?></p>
+                                <?php if(get_field("ins_greeting")) : ?>
+                                    <strong>Hilsen fra indsamler:</strong>
+                                    <p><?php echo get_field("ins_greeting"); ?></p>
+                                <?php endif; ?>
                                 <p>Genindlæs siden, for at se din donation.</p>
                             </div>
 

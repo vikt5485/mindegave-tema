@@ -20,7 +20,7 @@
                                     $color = get_sub_field("color");
                                 ?>
                                 <div class="statistic cell small-6 large-auto text-center">
-                                    <h4><?php echo $label; ?></h4>
+                                    <h3><?php echo $label; ?></h3>
                                     <canvas id="myChart-<?php echo $i; ?>"></canvas>
                                     <p><?php echo $percentage . "%"; ?></p>
                                     <?php $i++; ?>

@@ -7,7 +7,12 @@
 get_header(); ?>
     <div id="primary" class="content-area">
         <main id="main" class="site-main">
-            <!-- <?php get_template_part('template-parts/hero', 'banner'); ?> -->
+            <?php 
+                $today = date('Y-m-d');
+
+                $datetime_tomorrow = new DateTime('tomorrow');
+                $tomorrow = $datetime_tomorrow->format('Y-m-d');
+            ?>
             <section>
                 <div class="grid-container opret-mindeindsamling-container">
                     <h2 class="collection-header small-h1">Opret en indsamling</h2>
@@ -23,11 +28,11 @@ get_header(); ?>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell small-6">
                                         <label for="ins_born">Fødedato (valgfri)</label>
-                                        <input type="date" name="ins_born" id="ins_born" placeholder="Født"></input>
+                                        <input type="date" name="ins_born" id="ins_born" max="<?php echo $today; ?>" placeholder="Født"></input>
                                     </div>
                                     <div class="cell small-6">
                                         <label class="cell small-6" for="ins_dead">Dødsdato (valgfri)</label>
-                                        <input type="date" name="ins_dead" id="ins_dead" placeholder="Død"></input>                                    
+                                        <input type="date" name="ins_dead" id="ins_dead" max="<?php echo $today; ?>" placeholder="Død"></input>                                    
                                     </div>
 
                                 </div>
@@ -49,7 +54,7 @@ get_header(); ?>
                             </div>
                             <div class="cell small-12 medium-4">
                                 <label for="ins_end_date" class="required">Hvornår slutter din indsamling?</label>
-                                <input type="date" name="ins_end_date" id="ins_end_date" required>
+                                <input type="date" name="ins_end_date" id="ins_end_date" min="<?php echo $tomorrow; ?>" required>
                             </div>
                             <div class="cell small-6"><p>Start</p></div>
                             <div class="cell small-6 text-right"><p>Mål</p></div>

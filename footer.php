@@ -23,18 +23,8 @@
 <footer id="colophon" class="site-footer">
     <div class="grid-container">
         <div class="grid-x grid-margin-x ">
-            <div class="cell small-12 medium-4 large-3 large-offset-3">
-            <h4>Mindegave</h4>
-                <nav >
-                    <?php wp_nav_menu(array(
-                        'theme_location' => 'menu-2',
-                        'menu_id' => 'footer-1',
-                        'menu_class' => 'menu vertical'
-                    )); ?>
-                </nav>
-            </div>
-            <div class="cell small-12 medium-4 large-3">
-            <h4>Mindeindsamling</h4>
+            <div class="cell small-12 medium-6 large-4 ">
+             <h4>Muligheder for støtte</h4>
                 <nav >
                     <?php wp_nav_menu(array(
                         'theme_location' => 'menu-3',
@@ -43,17 +33,18 @@
                     )); ?>
                 </nav>
             </div>
-            <div class="cell small-12 medium-4 large-3">
-            <h4>Om Mindegave</h4>
+            <div class="cell small-12 medium-6 large-4">
+                <h4>Om Mindegave</h4>
                 <nav >
                     <?php wp_nav_menu(array(
-                        'theme_location' => 'menu-4',
+                        'theme_location' => 'menu-2',
                         'menu_id' => 'footer-3',
                         'menu_class' => 'menu vertical'
                     )); ?>
                 </nav>
             </div>
         </div>
+        <p class="disclaimer">Dette er et eksamensprojekt.<br>Alle indsamlinger er fiktive.</p>
     </div>
 </footer><!-- #colophon -->
 </div><!-- #page -->

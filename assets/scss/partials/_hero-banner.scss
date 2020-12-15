@@ -19,6 +19,12 @@
     }
   }
 
+  &:not(.has-thumbnail) {
+    .kb-logo {
+      color: $black;
+    }
+  }
+
   &.has-thumbnail, &.has-video {
       background-size: cover;
       background-position-y: 50%;
@@ -50,11 +56,11 @@
     right: 1rem;
     display: flex;
     align-items: center;
-
-    h5 {
-      color: $white;
-      margin-bottom: 0;
-    }
+    color: $white;
+    margin-bottom: 0;
+    text-decoration: none;
+    font-family: $header-font-family;
+    line-height: 1.3;
 
     svg {
       width: 50px;

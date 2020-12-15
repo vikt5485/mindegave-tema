@@ -65,15 +65,15 @@
     <?php endif; ?>
 
 <?php if($style == "narrow") : ?>
-    <div class="kb-logo">
-        <?php include(locate_template( 'assets/img/logo-kb.svg' )); ?>
-        <h5 >Kræftens<br>Bekæmpelse</h5>
-    </div>
+        <a href="https://www.cancer.dk" rel="noreferrer" target="_blank" class="kb-logo">
+            <?php include(locate_template( 'assets/img/logo-kb.svg' )); ?>
+            Kræftens<br>Bekæmpelse
+        </a>
     </div>
 <?php else : ?>
-    <div class="kb-logo">
-        <?php include(locate_template( 'assets/img/logo-kb.svg' )); ?>
-        <h5 >Kræftens<br>Bekæmpelse</h5>
-    </div>
+        <a href="https://www.cancer.dk" rel="noreferrer" target="_blank" class="kb-logo">
+            <?php include(locate_template( 'assets/img/logo-kb.svg' )); ?>
+            Kræftens<br>Bekæmpelse
+        </a>
     </section>
 <?php endif; ?>

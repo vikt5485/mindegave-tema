@@ -14,8 +14,8 @@ get_header(); ?>
                 <div class="content">
                     <div class="grid-container">
                         <div class="small-12 cell">
-                            <h1>Oops! That page can't be found.</h1>
-                            <p>It looks like nothing was found at this location. Maybe try one of the links in the menu?</p>
+                            <h1>Siden findes ikke.</h1>
+                            <a href="<?php echo get_home_url(); ?>">Gå til forsiden.</a>
                         </div>
                     </div>
                 </div>

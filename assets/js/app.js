@@ -1,14 +1,4 @@
-import $, { isEmptyObject } from "jquery";
-import "what-input";
-import Player from '@vimeo/player';
-
-// Foundation JS relies on a global varaible. In ES6, all imports are hoisted
-// to the top of the file so if we used`import` to import Foundation,
-// it would execute earlier than we have assigned the global variable.
-// This is why we have to use CommonJS require() here since it doesn't
-// have the hoisting behavior.
-//window.jQuery = $;
-//require('foundation-sites');
+import $ from "jquery";
 
 (function ($) {
   $(document).ready(function () {
@@ -18,14 +8,26 @@ import Player from '@vimeo/player';
     }
 
     // Loaded when DOM is ready
-    console.log("Running jQuery");
+    console.log("Running jQuery"); 
 
     let steps = $(".step").toArray().length;
     let currentStep = 1;
 
-
     $(".explainer").click(toggleVideoPlayState);
     $(".square-video .play-btn").click(toggleVideoPlayState);
+
+    $("form").submit(function(e) {
+      e.preventDefault();
+    });
+
+    createCollection();
+    searchCollection();
+    makeDonation();
+    burgerMenu();
+    videoPopup();  
+    createStatistics();
+    givMindegave();
+    toggleVideoPlayState();
 
     function toggleVideoPlayState() {
       if(document.querySelector(".explainer").paused) {
@@ -37,41 +39,17 @@ import Player from '@vimeo/player';
       }
     }
 
-
-    $("form").submit(function(e) {
-      e.preventDefault();
-    })
-
-    let inView = false;
-
-    createCollection();
-    searchCollection();
-    makeDonation();
-    burgerMenu();
-    videoPopup();  
-    createStatistics();
-    givMindegave();
-
     function videoPopup() {
       $(".video-placeholder").click(toggleVideoPopup);
       $(".video-popup").click(toggleVideoPopup);
       $(".video-popup iframe").click(function(e) {
         e.stopPropagation();
       });
-
     }
 
     function toggleVideoPopup() {
-      // let iframe = $(".video-popup iframe");
-      // player = new YT.Player(iframe);
-
-      if($(".video-popup").hasClass("popup-open")) {
-        // player.pause();
-      }
-
       $(".video-popup").toggleClass("popup-open");
       $("body").toggleClass("body-popup-open");
-
     }
 
     function toggleDonatePopup() {
@@ -130,6 +108,7 @@ import Player from '@vimeo/player';
               $(".thank-you-step").addClass("step-active");
             } else if(res.status == "error") {
               //Handle error
+              console.log("Error. Try again.");
             }
           })
         }
@@ -174,25 +153,26 @@ import Player from '@vimeo/player';
               $(".thank-you-step").removeClass("remove-step");
               $(".thank-you-step").addClass("step-active");
             } else if(res.status == "error") {
-              //Handle error
+              console.log("Error. Try again.");
             }
           })
         }
       })
     }
+
+    function isScrolledIntoView(elem) {
+      var docViewTop = $(window).scrollTop();
+      var docViewBottom = docViewTop + $(window).height();
+
+      var elemTop = $(elem).offset().top;
+      var elemBottom = elemTop + $(elem).height();
+
+      return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
+    }
   
     function createStatistics() {
+      let inView = false;
       if($('.statistics-container').length != 0) {
-        function isScrolledIntoView(elem) {
-          var docViewTop = $(window).scrollTop();
-          var docViewBottom = docViewTop + $(window).height();
-  
-          var elemTop = $(elem).offset().top;
-          var elemBottom = elemTop + $(elem).height();
-  
-          return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
-        }
-      
         $(window).scroll(function() {
           if (isScrolledIntoView('.statistics-container')) {
               if (inView) { return; }
@@ -679,8 +659,6 @@ import Player from '@vimeo/player';
       $(".burger-menu-overlay").click(function() {
         $("#masthead").toggleClass("menu-active");
       })
-
-
     }
   });
 })(jQuery);

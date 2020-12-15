@@ -21,6 +21,7 @@
                         </div>
                     </div>
                     <div class="video-popup">
+                        <div class="close-btn"><?php include(locate_template( 'assets/img/close-btn.svg' )); ?></div>
                         <?php echo str_replace('frameborder="0"', "", $video); ?>
                     </div>
                 <?php endif; ?>
