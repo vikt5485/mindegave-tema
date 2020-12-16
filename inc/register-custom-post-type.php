@@ -11,7 +11,7 @@ function register_custom_post_type()
                 'add_new_item' => 'Tilføj ny indsamling',
             ),
             'public' => true,
-            'has_archive' => true,
+            'has_archive' => false,
             'menu_icon' => 'dashicons-clipboard',
             'rewrite' => array( 'slug' => 'indsamling' ),
             'supports' => array(
