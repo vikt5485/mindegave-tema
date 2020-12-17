@@ -57,7 +57,7 @@ get_header(); ?>
                                     <div class="cell small-12"><p>Indsamlingen er udløbet.</p></div>
                                 <?php endif; ?>
                             </div>
-                            <div class="cell small-12 medium-6 medium-offset-1 single-img-container grid-x align-center small-order-1 medium-order-2">
+                            <div class="cell small-12 medium-6 medium-offset-1 single-img-container align-center small-order-1 medium-order-2">
                                 <img src="<?php echo esc_url( $image['sizes']['large'] ); ?>" class="indsamling-img" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
                             </div>
                         </div>
